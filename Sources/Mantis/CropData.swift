@@ -88,7 +88,7 @@ public struct Transformation: Equatable {
     }
 }
 
-public struct CropRegion: Equatable {
+public struct CropRegion: Hashable, Sendable {
     public var topLeft: CGPoint
     public var topRight: CGPoint
     public var bottomLeft: CGPoint
@@ -114,15 +114,15 @@ public struct CropRegion: Equatable {
     }
 }
 
-public typealias CropInfo = (
-    translation: CGPoint,
-    rotation: CGFloat,
-    scaleX: CGFloat,
-    scaleY: CGFloat,
-    cropSize: CGSize,
-    imageViewSize: CGSize,
-    cropRegion: CropRegion
-)
+public struct CropInfo: Hashable, Sendable {
+    let translation: CGPoint
+    let rotation: CGFloat
+    let scaleX: CGFloat
+    let scaleY: CGFloat
+    let cropSize: CGSize
+    let imageViewSize: CGSize
+    let cropRegion: CropRegion
+}
 
 typealias CropOutput = (
     croppedImage: UIImage?,
