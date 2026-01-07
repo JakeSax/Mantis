@@ -37,17 +37,52 @@ public enum CropStatus {
 /// @State private var image: UIImage?
 /// @State private var transformation: Transformation?
 /// @State private var cropInfo: CropInfo?
+/// @State private var action: CropAction?
 ///
 /// var body: some View {
 ///     ImageCropperView(
+///         config: {
+///             var config = Mantis.Config()
+///             config.showAttachedCropToolbar = false  // Hide the toolbar
+///             config.cropViewConfig.cropMaskVisualEffectType = .dark  // Use dark overlay instead of blur
+///             return config
+///         }(),
 ///         image: $image,
 ///         transformation: $transformation,
-///         cropInfo: $cropInfo
+///         cropInfo: $cropInfo,
+///         action: $action
 ///     )
+///     .overlay(alignment: .bottom) {
+///         HStack {
+///             Button("Cancel") {
+///                 dismiss()
+///             }
+///             Button("Crop") {
+///                 action = .crop
+///             }
+///         }
+///     }
 /// }
 /// ```
 /// This view handles the `cropViewControllerDidCrop` and `cropViewControllerDidCancel` delegate methods
 /// of `Mantis.CropViewController`. These methods are implemented by default in the `Coordinator`.
+///
+/// The `transformation` and `cropInfo` bindings are automatically updated:
+/// - `transformation` updates when the image is transformed (after gestures end)
+/// - `cropInfo` updates when resizing ends (after crop box adjustments)
+///
+/// To hide the toolbar and use your own UI:
+/// - Set `config.showAttachedCropToolbar = false` to hide the entire toolbar
+/// - Or set `config.cropToolbarConfig.mode = .embedded` to hide only cancel/crop buttons
+/// - Use the `action` binding with `.crop` or `.cancel` to trigger actions programmatically
+///
+/// To customize the background and mask overlay:
+/// - Set `config.cropViewConfig.cropMaskVisualEffectType = .dark` to use a dark overlay instead of blur
+/// - Or use `.custom(color:)` to set a custom overlay color (e.g., `.custom(color: UIColor.black.withAlphaComponent(0.5))`)
+/// - The default `.blurDark` shows a blur effect; `.dark` shows a solid dark overlay similar to the gesture overlay
+///
+/// The `.reset` action is automatically animated with a 0.3 second duration. To customize the animation,
+/// you would need to implement your own `UIViewControllerRepresentable` and `Coordinator`.
 ///
 /// If you need to handle more delegate methods (e.g., `cropViewControllerDidBeginResize`,
 /// `cropViewControllerDidImageTransformed`, etc.), you will need to implement your own `UIViewControllerRepresentable`
@@ -138,6 +173,23 @@ public struct ImageCropperView: UIViewControllerRepresentable {
         }
         
         @MainActor
+        public func cropViewControllerDidImageTransformed(
+            _: Mantis.CropViewController,
+            transformation: Transformation
+        ) {
+            parent.transformation = transformation
+        }
+        
+        @MainActor
+        public func cropViewControllerDidEndResize(
+            _: Mantis.CropViewController,
+            original _: UIImage,
+            cropInfo: CropInfo
+        ) {
+            parent.cropInfo = cropInfo
+        }
+        
+        @MainActor
         func handleAction() {
             guard !isProcessingAction else { return }
             
@@ -159,7 +211,10 @@ public struct ImageCropperView: UIViewControllerRepresentable {
                 // Let delegate callbacks handle state cleanup for `.crop`.
                 return
             case .reset:
-                cropVC.didSelectReset()
+                // Animate the reset operation
+                UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseInOut], animations: {
+                    cropVC.didSelectReset()
+                })
             case .rotateLeft:
                 cropVC.didSelectCounterClockwiseRotate()
             case .rotateRight:
