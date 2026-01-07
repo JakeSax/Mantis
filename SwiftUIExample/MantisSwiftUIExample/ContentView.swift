@@ -5,8 +5,8 @@
 //  Created by Echo on 4/29/21.
 //
 
-import SwiftUI
 import Mantis
+import SwiftUI
 
 public enum CropperType {
     case normal
@@ -38,10 +38,13 @@ struct ContentView: View {
             createFeatureDemoList()
         }
         .fullScreenCover(isPresented: $showingCropper, content: {
-            ImageCropperWrapper(image: $image,
-                                cropShapeType: $cropShapeType,
-                                presetFixedRatioType: $presetFixedRatioType,
-                                type: $cropperType, transformation: $transformation)
+            ImageCropperWrapper(
+                image: $image,
+                cropShapeType: $cropShapeType,
+                presetFixedRatioType: $presetFixedRatioType,
+                type: $cropperType,
+                transformation: $transformation
+            )
             .onDisappear(perform: reset)
             .ignoresSafeArea()
         })
@@ -49,7 +52,11 @@ struct ContentView: View {
             CropShapeListView(cropShapeType: $cropShapeType, selectedType: $showingCropper)
         }
         .sheet(isPresented: $showSourceTypeSelection) {
-            SourceTypeSelectionView(showSourceTypeSelection: $showSourceTypeSelection, showCamera: $showCamera, showImagePicker: $showImagePicker)
+            SourceTypeSelectionView(
+                showSourceTypeSelection: $showSourceTypeSelection,
+                showCamera: $showCamera,
+                showImagePicker: $showImagePicker
+            )
         }
         .sheet(isPresented: $showCamera) {
             CameraView(image: $image)
@@ -70,7 +77,7 @@ struct ContentView: View {
             Spacer()
             Image(uiImage: image!)
                 .resizable().aspectRatio(contentMode: .fit)
-                .frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                .frame(width: 300, height: 300, alignment: /*@START_MENU_TOKEN@*/ .center/*@END_MENU_TOKEN@*/)
             HStack {
                 Button("Choose Image") {
                     showSourceTypeSelection = true
@@ -89,7 +96,11 @@ struct ContentView: View {
         ScrollView {
             if horizontalSizeClass == .regular {
                 createFeatureDemoListContent()
-                    .frame(maxWidth: .infinity, minHeight: 0, maxHeight: contentHeight < UIScreen.main.bounds.height ? .infinity : nil)
+                    .frame(
+                        maxWidth: .infinity,
+                        minHeight: 0,
+                        maxHeight: contentHeight < UIScreen.main.bounds.height ? .infinity : nil
+                    )
                     .padding(.vertical, (UIScreen.main.bounds.height - contentHeight) / 2)
             } else {
                 createFeatureDemoListContent()

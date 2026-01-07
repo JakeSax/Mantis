@@ -8,7 +8,7 @@
 import UIKit
 
 public struct SlideDialConfig {
-    public init() {}
+    public init() { }
     
     public var lengthRatio: CGFloat = 0.8
     public var limitation: CGFloat = Constants.rotationDegreeLimit

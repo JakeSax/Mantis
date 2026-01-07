@@ -16,9 +16,11 @@ protocol CropViewModelProtocol: AnyObject {
     var cropBoxFrame: CGRect { get set }
     var cropBoxOriginFrame: CGRect { get set }
     func resetCropFrame(by frame: CGRect)
-    func getNewCropBoxFrame(withTouchPoint touchPoint: CGPoint,
-                            andContentFrame contentFrame: CGRect,
-                            aspectRatioLockEnabled: Bool) -> CGRect
+    func getNewCropBoxFrame(
+        withTouchPoint touchPoint: CGPoint,
+        andContentFrame contentFrame: CGRect,
+        aspectRatioLockEnabled: Bool
+    ) -> CGRect
     func setCropBoxFrame(by refCropBox: CGRect, for imageHorizontalToVerticalRatio: ImageHorizontalToVerticalRatio)
 
     var statusChanged: (_ status: CropViewStatus) -> Void { get set }

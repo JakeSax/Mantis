@@ -23,36 +23,44 @@ class MyNavigationCropToolbar: UIView, CropToolbarProtocol {
     
     weak var cropViewController: Mantis.CropViewController?
     
-    func createToolbarUI(config: CropToolbarConfig) {
-        guard let cropViewController = cropViewController else {
+    func createToolbarUI(config _: CropToolbarConfig) {
+        guard let cropViewController else {
             return
         }
         
-        cropViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .close, target: self, action: #selector(cancel))
+        cropViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(
+            barButtonSystemItem: .close,
+            target: self,
+            action: #selector(cancel)
+        )
         
-        let rotateButton = UIBarButtonItem(image: UIImage(systemName: "rotate.right"), style: .plain, target: self, action: #selector(rotate))
+        let rotateButton = UIBarButtonItem(
+            image: UIImage(systemName: "rotate.right"),
+            style: .plain,
+            target: self,
+            action: #selector(rotate)
+        )
         let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(crop))
         
         cropViewController.navigationItem.rightBarButtonItems = [doneButton, rotateButton]
     }
     
-    func handleFixedRatioSetted(ratio: Double) {
-        
-    }
+    func handleFixedRatioSetted(ratio _: Double) { }
     
-    func handleFixedRatioUnSetted() {
-        
-    }
+    func handleFixedRatioUnSetted() { }
     
-    @objc func crop() {
+    @objc
+    func crop() {
         delegate?.didSelectCrop(self)
     }
     
-    @objc func cancel() {
+    @objc
+    func cancel() {
         delegate?.didSelectCancel(self)
     }
     
-    @objc func rotate() {
+    @objc
+    func rotate() {
         delegate?.didSelectClockwiseRotate(self)
     }
 }

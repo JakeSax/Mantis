@@ -5,11 +5,10 @@
 //  Created by Yingtao Guo on 2/26/23.
 //
 
-import XCTest
 @testable import Mantis
+import XCTest
 
 final class CropAuxiliaryIndicatorViewTests: XCTestCase {
-    
     var cropAuxiliaryIndicatorView: CropAuxiliaryIndicatorView!
 
     override func setUpWithError() throws {
@@ -21,7 +20,10 @@ final class CropAuxiliaryIndicatorViewTests: XCTestCase {
     }
     
     func testInitWithCoder() throws {
-        let data = try NSKeyedArchiver.archivedData(withRootObject: cropAuxiliaryIndicatorView!, requiringSecureCoding: false)
+        let data = try NSKeyedArchiver.archivedData(
+            withRootObject: cropAuxiliaryIndicatorView!,
+            requiringSecureCoding: false
+        )
         let coder = try XCTUnwrap(NSKeyedUnarchiver(forReadingFrom: data))
         let cropAuxiliaryIndicatorView = CropAuxiliaryIndicatorView(coder: coder)
         XCTAssertNotNil(cropAuxiliaryIndicatorView)
@@ -57,7 +59,7 @@ final class CropAuxiliaryIndicatorViewTests: XCTestCase {
 
         cropAuxiliaryIndicatorView.frame = CGRect(x: 0, y: 0, width: 100, height: 100)
         XCTAssertEqual(cropAuxiliaryIndicatorView.subviews.count, subviewCount + 1)
-        XCTAssertEqual(cropAuxiliaryIndicatorView.gridLineNumberType, .crop)        
+        XCTAssertEqual(cropAuxiliaryIndicatorView.gridLineNumberType, .crop)
     }
         
     func testHandleCornerHandleTouched() {

@@ -17,7 +17,7 @@ class ImagePicker: NSObject {
     private weak var presentationController: UIViewController?
     private weak var delegate: ImagePickerDelegate?
 
-    public init(presentationController: UIViewController, delegate: ImagePickerDelegate) {
+    init(presentationController: UIViewController, delegate: ImagePickerDelegate) {
         self.pickerController = UIImagePickerController()
 
         super.init()
@@ -41,8 +41,7 @@ class ImagePicker: NSObject {
         }
     }
     
-    public func present(from sourceView: UIView) {
-
+    func present(from sourceView: UIView) {
         let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         if let action = self.action(for: .camera, title: "Take photo") {
@@ -70,13 +69,14 @@ class ImagePicker: NSObject {
 }
 
 extension ImagePicker: UIImagePickerControllerDelegate {
-    
-    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         self.pickerController(picker, didSelect: nil)
     }
 
-    public func imagePickerController(_ picker: UIImagePickerController,
-                                      didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    func imagePickerController(
+        _ picker: UIImagePickerController,
+        didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+    ) {
         guard let image = info[.originalImage] as? UIImage else {
             return self.pickerController(picker, didSelect: nil)
         }
@@ -84,6 +84,4 @@ extension ImagePicker: UIImagePickerControllerDelegate {
     }
 }
 
-extension ImagePicker: UINavigationControllerDelegate {
-    
-}
+extension ImagePicker: UINavigationControllerDelegate { }

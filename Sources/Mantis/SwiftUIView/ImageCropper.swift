@@ -24,7 +24,7 @@ public enum CropStatus {
     case succeeded
     case failed
 }
-@available(iOS 13.0, *)
+
 /// A SwiftUI view that wraps the Mantis image cropping functionality.
 ///
 /// Use this view to present a cropping interface to the user. The cropped image,
@@ -54,6 +54,7 @@ public enum CropStatus {
 /// and `Coordinator` to manage those delegate methods.
 ///
 
+@available(iOS 13.0, *)
 public struct ImageCropperView: UIViewControllerRepresentable {
     let config: Mantis.Config
     
@@ -72,13 +73,15 @@ public struct ImageCropperView: UIViewControllerRepresentable {
     ///   - image: A binding to the original image to be cropped.
     ///   - transformation: A binding to receive the transformation (rotation, scaling, etc.) applied to the image.
     ///   - cropInfo: A binding to receive information about the selected crop area.
-    public init(config: Mantis.Config = Mantis.Config(),
-                image: Binding<UIImage?>,
-                transformation: Binding<Transformation?>,
-                cropInfo: Binding<CropInfo?>,
-                action: Binding<CropAction?> = .constant(nil),
-                onDismiss: @escaping () -> Void = {},
-                onCropCompleted: @escaping (_ status: CropStatus) -> Void = { _  in}) {
+    public init(
+        config: Mantis.Config = Mantis.Config(),
+        image: Binding<UIImage?>,
+        transformation: Binding<Transformation?>,
+        cropInfo: Binding<CropInfo?>,
+        action: Binding<CropAction?> = .constant(nil),
+        onDismiss: @escaping () -> Void = { },
+        onCropCompleted: @escaping (_ status: CropStatus) -> Void = { _ in }
+    ) {
         self.config = config
         _image = image
         _transformation = transformation
@@ -104,7 +107,12 @@ public struct ImageCropperView: UIViewControllerRepresentable {
         }
         
         @MainActor
-        public func cropViewControllerDidCrop(_ cropViewController: Mantis.CropViewController, cropped: UIImage, transformation: Transformation, cropInfo: CropInfo) {
+        public func cropViewControllerDidCrop(
+            _: Mantis.CropViewController,
+            cropped: UIImage,
+            transformation: Transformation,
+            cropInfo: CropInfo
+        ) {
             parent.image = cropped
             parent.transformation = transformation
             parent.cropInfo = cropInfo
@@ -117,12 +125,12 @@ public struct ImageCropperView: UIViewControllerRepresentable {
         }
         
         @MainActor
-        public func cropViewControllerDidCancel(_ cropViewController: Mantis.CropViewController, original: UIImage) {
+        public func cropViewControllerDidCancel(_: Mantis.CropViewController, original _: UIImage) {
             parent.onDismiss()
         }
         
         @MainActor
-        public func cropViewControllerDidFailToCrop(_ cropViewController: Mantis.CropViewController, original: UIImage) {
+        public func cropViewControllerDidFailToCrop(_: Mantis.CropViewController, original _: UIImage) {
             isProcessingAction = false
             lastProcessedAction = nil
             parent.onDismiss()
@@ -170,9 +178,9 @@ public struct ImageCropperView: UIViewControllerRepresentable {
         private func areActionsEqual(_ lhs: CropAction, _ rhs: CropAction) -> Bool {
             switch (lhs, rhs) {
             case (.crop, .crop):
-                return true
+                true
             default:
-                return false
+                false
             }
         }
         
@@ -213,9 +221,8 @@ public struct ImageCropperView: UIViewControllerRepresentable {
         return cropViewController
     }
     
-    public func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
+    public func updateUIViewController(_: UIViewController, context: Context) {
         context.coordinator.updateParent(self)
         context.coordinator.handleAction()
     }
 }
-

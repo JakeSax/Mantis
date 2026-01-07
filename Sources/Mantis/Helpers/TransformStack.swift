@@ -1,8 +1,7 @@
 import UIKit
 
 class TransformStack: NSObject {
-    
-    static var shared: TransformStack = TransformStack()
+    static var shared: TransformStack = .init()
     
     weak var transformDelegate: TransformDelegate?
     
@@ -10,18 +9,20 @@ class TransformStack: NSObject {
     
     var top: Int = 0
     
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private override init() {
+    override private init() {
         super.init()
         
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(self.undoStatusChanged(notification:)),
             name: .NSUndoManagerCheckpoint,
-            object: nil)
+            object: nil
+        )
     }
     
     func pushTransformRecord(_ record: TransformRecord) {
@@ -43,31 +44,36 @@ class TransformStack: NSObject {
         top = 0
     }
     
-    @objc func undoStatusChanged(notification: NSNotification?) {
-        guard let transformDelegate = transformDelegate else { return }
+    @objc
+    func undoStatusChanged(notification _: NSNotification?) {
+        guard let transformDelegate else { return }
         transformDelegate.updateEnableStateForUndo(transformDelegate.isUndoEnabled())
         transformDelegate.updateEnableStateForRedo(transformDelegate.isRedoEnabled())
     }
     
-    func pushTransformRecordOntoStack(transformType: TransformType, previous: CropState, current: CropState, userGenerated: Bool) {
+    func pushTransformRecordOntoStack(
+        transformType: TransformType,
+        previous: CropState,
+        current: CropState,
+        userGenerated: Bool
+    ) {
         if userGenerated {
-            
-            let actionString: String
-            
-            switch transformType {
+            let actionString: String = switch transformType {
             case .transform:
-                actionString = LocalizedHelper.getString("Mantis.ChangeCrop", value: "Change Crop")
+                LocalizedHelper.getString("Mantis.ChangeCrop", value: "Change Crop")
             case .resetTransforms:
-                actionString = LocalizedHelper.getString("Mantis.ResetChanges", value: "Reset Changes")
+                LocalizedHelper.getString("Mantis.ResetChanges", value: "Reset Changes")
             }
             
             let previousValue: [String: CropState] = [.kCurrentTransformState: previous]
             let currentValue: [String: CropState] = [.kCurrentTransformState: current]
             
-            let transformRecord = TransformRecord(transformType: transformType, 
-                                                  actionName: actionString,
-                                                  previousValues: previousValue,
-                                                  currentValues: currentValue)
+            let transformRecord = TransformRecord(
+                transformType: transformType,
+                actionName: actionString,
+                previousValues: previousValue,
+                currentValues: currentValue
+            )
             
             transformRecord.addAdjustmentToStack()
         }

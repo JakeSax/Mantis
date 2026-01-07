@@ -6,11 +6,10 @@
 //  Copyright © 2018 Echo. All rights reserved.
 //
 
-import XCTest
 @testable import Mantis
+import XCTest
 
 class MantisTests: XCTestCase {
-
     override func setUp() {
         // Put setup code here. This method is called before the invocation of each test method in the class.
     }
@@ -30,5 +29,4 @@ class MantisTests: XCTestCase {
             // Put the code you want to measure the time of here.
         }
     }
-
 }

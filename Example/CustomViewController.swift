@@ -1,13 +1,13 @@
 //
-//  ViewController.swift
+//  CustomViewController.swift
 //  Mantis
 //
 //  Created by Yingtao Guo on 10/19/18.
 //  Copyright © 2018 Echo Studio. All rights reserved.
 //
 
-import UIKit
 import Mantis
+import UIKit
 
 class CustomViewController: CropViewController {
     override func viewDidLoad() {
@@ -16,14 +16,14 @@ class CustomViewController: CropViewController {
         title = "Custom View Controller"
 
         let rotate = UIBarButtonItem(
-            image: UIImage.init(systemName: "crop.rotate"),
+            image: UIImage(systemName: "crop.rotate"),
             style: .plain,
             target: self,
             action: #selector(onRotateClicked)
         )
 
         let done = UIBarButtonItem(
-            image: UIImage.init(systemName: "checkmark"),
+            image: UIImage(systemName: "checkmark"),
             style: .plain,
             target: self,
             action: #selector(onDoneClicked)
@@ -35,11 +35,13 @@ class CustomViewController: CropViewController {
         ]
     }
 
-    @objc private func onRotateClicked() {
+    @objc
+    private func onRotateClicked() {
         didSelectClockwiseRotate()
     }
 
-    @objc private func onDoneClicked() {
+    @objc
+    private func onDoneClicked() {
         crop()
     }
 }

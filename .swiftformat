@@ -1,0 +1,74 @@
+# .swiftformat
+# SwiftFormat configuration for ATProtoKit fork
+
+--swiftversion 6.2
+
+# Indentation
+--indent 4
+--indentcase false
+--ifdef no-indent
+--xcodeindentation enabled
+
+# Line length
+--maxwidth 120
+
+--commas inline
+
+
+# Wrapping
+--wraparguments before-first
+--wrapparameters before-first
+--wrapcollections before-first
+--wrapconditions after-first
+--closingparen balanced
+--funcattributes prev-line
+--typeattributes prev-line
+--computedvarattrs same-line
+--storedvarattrs same-line
+--disable wrapSwitchCases
+
+# Whitespace
+--operatorfunc spaced
+--nospaceoperators .., ...
+--trimwhitespace nonblank-lines
+--linebreaks lf
+--ranges spaced
+
+# Braces
+--allman false
+--elseposition same-line
+--guardelse next-line
+
+# Self - only require where Swift requires it (closures, etc.)
+# Remove these two lines if you want standard Swift behavior:
+--selfrequired
+--disable redundantSelf
+
+# Imports
+--importgrouping alphabetized
+
+# Misc
+--emptybraces spaced
+--semicolons never
+--patternlet inline
+
+# Numeric literals
+--decimalgrouping 3,5
+--binarygrouping 4,8
+--hexgrouping 4,8
+--octalgrouping 4,8
+--exponentcase lowercase
+--hexliteralcase uppercase
+
+# Marks
+--lineaftermarks false
+--beforemarks blankline
+
+# Disable rules that can be too aggressive
+--disable preferKeyPath
+
+# Exclude paths (adjust as needed)
+--exclude .build,Package.resolved
+
+# Careful with organizetypes on existing code - comment out if unwanted
+# --organizetypes class,enum,struct,extension

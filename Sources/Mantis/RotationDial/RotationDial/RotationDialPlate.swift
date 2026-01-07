@@ -1,5 +1,5 @@
 //
-//  RotationDailPlate.swift
+//  RotationDialPlate.swift
 //  Puffer
 //
 //  Created by Echo on 10/24/18.
@@ -36,7 +36,8 @@ final class RotationDialPlate: UIView {
         layer.instanceTransform =
             CATransform3DMakeRotation(
                 2 * CGFloat.pi / CGFloat(layer.instanceCount),
-                0, 0, 1)
+                0, 0, 1
+            )
         
         return layer
     }()
@@ -47,7 +48,8 @@ final class RotationDialPlate: UIView {
         layer.instanceTransform =
             CATransform3DMakeRotation(
                 2 * CGFloat.pi / CGFloat(layer.instanceCount),
-                0, 0, 1)
+                0, 0, 1
+            )
         
         return layer
     }()
@@ -81,7 +83,7 @@ final class RotationDialPlate: UIView {
     
     private func setupAngleNumber() {
         let numberFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.caption2)
-        let cgFont = CTFontCreateUIFontForLanguage(.label, numberFont.pointSize/2, nil)
+        let cgFont = CTFontCreateUIFontForLanguage(.label, numberFont.pointSize / 2, nil)
         
         let numberPlateLayer = CALayer()
         numberPlateLayer.sublayers?.forEach { $0.removeFromSuperlayer() }
@@ -90,11 +92,13 @@ final class RotationDialPlate: UIView {
         self.layer.addSublayer(numberPlateLayer)
         
         let origin = CGPoint(x: numberPlateLayer.frame.midX, y: numberPlateLayer.frame.midY)
-        let startPos = CGPoint(x: numberPlateLayer.bounds.midX, y: numberPlateLayer.bounds.maxY - margin - spaceBetweenScaleAndNumber)
+        let startPos = CGPoint(
+            x: numberPlateLayer.bounds.midX,
+            y: numberPlateLayer.bounds.maxY - margin - spaceBetweenScaleAndNumber
+        )
         let step = (2 * CGFloat.pi) / CGFloat(bigDegreeScaleNumber)
         
-        for index in (0 ..< bigDegreeScaleNumber) {
-            
+        for index in 0 ..< bigDegreeScaleNumber {
             guard index % config.numberShowSpan == 0 else {
                 continue
             }
@@ -116,7 +120,7 @@ final class RotationDialPlate: UIView {
                 .point
                 .checked
             
-            numberLayer.transform = CATransform3DMakeRotation(-stepChange, 0, 0, 1)            
+            numberLayer.transform = CATransform3DMakeRotation(-stepChange, 0, 0, 1)
             numberPlateLayer.addSublayer(numberLayer)
         }
     }
@@ -145,10 +149,12 @@ final class RotationDialPlate: UIView {
     private func setCenterPart() {
         let layer = CAShapeLayer()
         let radius: CGFloat = 4
-        layer.frame = CGRect(x: (self.layer.bounds.width - radius) / 2,
-                             y: (self.layer.bounds.height - radius) / 2,
-                             width: radius,
-                             height: radius)
+        layer.frame = CGRect(
+            x: (self.layer.bounds.width - radius) / 2,
+            y: (self.layer.bounds.height - radius) / 2,
+            width: radius,
+            height: radius
+        )
         layer.path = UIBezierPath(ovalIn: layer.bounds).cgPath
         layer.fillColor = config.centerAxisColor.cgColor
         
@@ -165,10 +171,10 @@ final class RotationDialPlate: UIView {
     
     func reset() {
         transform = .identity
-        layer.sublayers?.forEach({ $0.removeFromSuperlayer() })
+        layer.sublayers?.forEach { $0.removeFromSuperlayer() }
     }
     
-    func getRotationAngle() -> Angle {        
+    func getRotationAngle() -> Angle {
         let radians = CGFloat(atan2f(Float(transform.b), Float(transform.a)))
         return Angle(radians: radians)
     }

@@ -5,8 +5,8 @@
 //  Created by Yingtao Guo on 2/3/23.
 //
 
-import UIKit
 @testable import Mantis
+import UIKit
 
 class FakeRotationDialView: UIView, RotationDialProtocol {
     var isAttachedToCropView = true
@@ -21,31 +21,23 @@ class FakeRotationDialView: UIView, RotationDialProtocol {
     
     var didFinishRotation: () -> Void = { }
     
-    func setupUI(withAllowableFrame allowableFrame: CGRect) {
-        
-    }
+    func setupUI(withAllowableFrame _: CGRect) { }
     
-    func updateRotationValue(by angle: Angle) -> Bool {
+    func updateRotationValue(by _: Angle) -> Bool {
         false
     }
     
-    func rotateDialPlate(to angle: Angle, animated: Bool) {
-        
-    }
+    func rotateDialPlate(to _: Angle, animated _: Bool) { }
     
     func getRotationAngle() -> Angle {
         .init(degrees: 0)
     }
     
-    func setRotationCenter(by point: CGPoint, of view: UIView) {
-        
-    }
+    func setRotationCenter(by _: CGPoint, of _: UIView) { }
     
-    func reset() {
-        
-    }
+    func reset() { }
     
     func getTotalRotationValue() -> CGFloat {
-        return 0
+        0
     }
 }

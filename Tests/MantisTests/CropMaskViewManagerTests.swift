@@ -5,11 +5,10 @@
 //  Created by yingtguo on 2/5/23.
 //
 
-import XCTest
 @testable import Mantis
+import XCTest
 
 final class CropMaskViewManagerTests: XCTestCase {
-    
     var cropMaskViewManager: CropMaskViewManager!
     let dimmingView = FakeCropMaskView(frame: .zero)
     let visualEffectView = FakeCropMaskView(frame: .zero)
@@ -29,7 +28,7 @@ final class CropMaskViewManagerTests: XCTestCase {
         XCTAssertEqual(dimmingView.alpha, 0)
         XCTAssertEqual(visualEffectView.alpha, 1)
         
-        cropMaskViewManager.maskViews.forEach { maskView in
+        for maskView in cropMaskViewManager.maskViews {
             XCTAssertEqual(maskView.superview, container)
         }
     }
@@ -38,7 +37,7 @@ final class CropMaskViewManagerTests: XCTestCase {
         cropMaskViewManager.removeMaskViews()
         XCTAssertEqual(cropMaskViewManager.maskViews.count, 2)
      
-        cropMaskViewManager.maskViews.forEach { maskView in
+        for maskView in cropMaskViewManager.maskViews {
             XCTAssertNil(maskView.superview)
         }
     }

@@ -5,11 +5,10 @@
 //  Created by yingtguo on 2/4/23.
 //
 
-import XCTest
 @testable import Mantis
+import XCTest
 
 final class ImageContainerTests: XCTestCase {
-
     var imageContainer: ImageContainer!
     
     override func setUpWithError() throws {
@@ -32,26 +31,32 @@ final class ImageContainerTests: XCTestCase {
         parentView.addSubview(imageContainer)
         
         var region = imageContainer.getCropRegion(withCropBoxFrame: frame, cropView: parentView)
-        var expectedRegion = CropRegion(topLeft: CGPoint(x: 0, y: 0),
-                                        topRight: CGPoint(x: 1, y: 0),
-                                        bottomLeft: CGPoint(x: 0, y: 1),
-                                        bottomRight: CGPoint(x: 1, y: 1))
+        var expectedRegion = CropRegion(
+            topLeft: CGPoint(x: 0, y: 0),
+            topRight: CGPoint(x: 1, y: 0),
+            bottomLeft: CGPoint(x: 0, y: 1),
+            bottomRight: CGPoint(x: 1, y: 1)
+        )
         assertEqual(region, expectedRegion)
         
         let cropFrame = CGRect(x: 50, y: 25, width: 100, height: 50)
         region = imageContainer.getCropRegion(withCropBoxFrame: cropFrame, cropView: parentView)
-        expectedRegion = CropRegion(topLeft: CGPoint(x: 0.25, y: 0.25),
-                                    topRight: CGPoint(x: 0.75, y: 0.25),
-                                    bottomLeft: CGPoint(x: 0.25, y: 0.75),
-                                    bottomRight: CGPoint(x: 0.75, y: 0.75))
+        expectedRegion = CropRegion(
+            topLeft: CGPoint(x: 0.25, y: 0.25),
+            topRight: CGPoint(x: 0.75, y: 0.25),
+            bottomLeft: CGPoint(x: 0.25, y: 0.75),
+            bottomRight: CGPoint(x: 0.75, y: 0.75)
+        )
         assertEqual(region, expectedRegion)
         
         imageContainer.transform = CGAffineTransform(rotationAngle: .pi / 2)
         region = imageContainer.getCropRegion(withCropBoxFrame: cropFrame, cropView: parentView)
-        expectedRegion = CropRegion(topLeft: CGPoint(x: 0.375, y: 1),
-                                    topRight: CGPoint(x: 0.375, y: 0),
-                                    bottomLeft: CGPoint(x: 0.625, y: 1),
-                                    bottomRight: CGPoint(x: 0.625, y: 0))
+        expectedRegion = CropRegion(
+            topLeft: CGPoint(x: 0.375, y: 1),
+            topRight: CGPoint(x: 0.375, y: 0),
+            bottomLeft: CGPoint(x: 0.625, y: 1),
+            bottomRight: CGPoint(x: 0.625, y: 0)
+        )
         
         assertEqual(region, expectedRegion)
     }
@@ -70,6 +75,7 @@ final class ImageContainerTests: XCTestCase {
 }
 
 extension ImageContainerTests {
-    private var sourceImage: UIImageView? { imageContainer.findSubview(withAccessibilityIdentifier: "SourceImage") as? UIImageView
+    private var sourceImage: UIImageView? {
+        imageContainer.findSubview(withAccessibilityIdentifier: "SourceImage") as? UIImageView
     }
 }

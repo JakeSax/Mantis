@@ -8,13 +8,14 @@
 
 import Foundation
 
-struct LocalizedHelper {
+enum LocalizedHelper {
     private static var bundle: Bundle?
     
     static func setBundle(_ bundle: Bundle) {
         guard let resourceBundleURL = bundle.url(
-            forResource: "MantisResources", withExtension: "bundle")
-            else { return }
+            forResource: "MantisResources", withExtension: "bundle"
+        )
+        else { return }
         LocalizedHelper.bundle = Bundle(url: resourceBundleURL)
     }
     
@@ -25,7 +26,7 @@ struct LocalizedHelper {
     ) -> String {
         let value = value ?? key
 
-#if MANTIS_SPM
+        #if MANTIS_SPM
         let bundle = localizationConfig.bundle ?? Bundle.module
         
         guard let bundle = convertToLanguageBundleIfNeeded(by: bundle) else {
@@ -39,7 +40,7 @@ struct LocalizedHelper {
             value: value,
             comment: ""
         )
-#else
+        #else
         guard let bundle = LocalizedHelper.bundle ?? (localizationConfig.bundle ?? Mantis.bundle) else {
             return value
         }
@@ -55,13 +56,14 @@ struct LocalizedHelper {
             value: value,
             comment: ""
         )
-#endif
+        #endif
     }
     
-    static private func convertToLanguageBundleIfNeeded(by bundle: Bundle?) -> Bundle? {
+    private static func convertToLanguageBundleIfNeeded(by bundle: Bundle?) -> Bundle? {
         if let languageCode = Mantis.Config.language?.code,
            let languageBundlePath = bundle?.path(forResource: languageCode, ofType: "lproj"),
-           let languageBundle = Bundle(path: languageBundlePath) {
+           let languageBundle = Bundle(path: languageBundlePath)
+        {
             return languageBundle
         }
         

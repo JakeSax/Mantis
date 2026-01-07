@@ -53,7 +53,11 @@ extension ToolBarButtonImageBuilder {
         let bezierPath = UIBezierPath()
         bezierPath.move(to: CGPoint(x: 10, y: 3))
         
-        bezierPath.addCurve(to: CGPoint(x: 17.5, y: 11), controlPoint1: CGPoint(x: 15, y: 3), controlPoint2: CGPoint(x: 17.5, y: 5.91))
+        bezierPath.addCurve(
+            to: CGPoint(x: 17.5, y: 11),
+            controlPoint1: CGPoint(x: 15, y: 3),
+            controlPoint2: CGPoint(x: 17.5, y: 5.91)
+        )
         UIColor.white.setStroke()
         bezierPath.lineWidth = 1
         bezierPath.stroke()
@@ -67,11 +71,14 @@ extension ToolBarButtonImageBuilder {
     static func drawRotateCWImage() -> UIImage? {
         guard let rotateCCWImage = self.rotateCCWImage(), let cgImage = rotateCCWImage.cgImage else { return nil }
         
-        UIGraphicsBeginImageContextWithOptions(rotateCCWImage.size, false, rotateCCWImage.scale )
+        UIGraphicsBeginImageContextWithOptions(rotateCCWImage.size, false, rotateCCWImage.scale)
         let context = UIGraphicsGetCurrentContext()
         context?.translateBy(x: rotateCCWImage.size.width, y: rotateCCWImage.size.height)
         context?.rotate(by: .pi)
-        context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: rotateCCWImage.size.width, height: rotateCCWImage.size.height))
+        context?.draw(
+            cgImage,
+            in: CGRect(x: 0, y: 0, width: rotateCCWImage.size.width, height: rotateCCWImage.size.height)
+        )
         let rotateCWImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return rotateCWImage
@@ -141,17 +148,26 @@ extension ToolBarButtonImageBuilder {
         UIGraphicsEndImageContext()
         
         return flippedImage
-        
-    }
+     }
     
     static func drawFlipVertically() -> UIImage? {
-        guard let flippedHorizontallyImage = self.flipHorizontally(), let cgImage = flippedHorizontallyImage.cgImage else { return nil }
+        guard let flippedHorizontallyImage = self.flipHorizontally(),
+              let cgImage = flippedHorizontallyImage.cgImage
+        else { return nil }
         
-        UIGraphicsBeginImageContextWithOptions(flippedHorizontallyImage.size, false, flippedHorizontallyImage.scale )
+        UIGraphicsBeginImageContextWithOptions(flippedHorizontallyImage.size, false, flippedHorizontallyImage.scale)
         let context = UIGraphicsGetCurrentContext()
         context?.rotate(by: -.pi / 2)
         context?.translateBy(x: -flippedHorizontallyImage.size.height, y: 0)
-        context?.draw(cgImage, in: CGRect(x: 0, y: 0, width: flippedHorizontallyImage.size.height, height: flippedHorizontallyImage.size.width))
+        context?.draw(
+            cgImage,
+            in: CGRect(
+                x: 0,
+                y: 0,
+                width: flippedHorizontallyImage.size.height,
+                height: flippedHorizontallyImage.size.width
+            )
+        )
         let flippedVerticallyImage: UIImage? = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return flippedVerticallyImage
@@ -196,20 +212,60 @@ extension ToolBarButtonImageBuilder {
     static func drawResetImage() -> UIImage? {
         var resetImage: UIImage?
         
-        UIGraphicsBeginImageContextWithOptions(CGSize(width: 22, height: 18), false, 0.0)            //// Bezier 2 Drawing
+        UIGraphicsBeginImageContextWithOptions(CGSize(width: 22, height: 18), false, 0.0) //// Bezier 2 Drawing
         let bezier2Path = UIBezierPath()
         bezier2Path.move(to: CGPoint(x: 22, y: 9))
-        bezier2Path.addCurve(to: CGPoint(x: 13, y: 18), controlPoint1: CGPoint(x: 22, y: 13.97), controlPoint2: CGPoint(x: 17.97, y: 18))
-        bezier2Path.addCurve(to: CGPoint(x: 13, y: 16), controlPoint1: CGPoint(x: 13, y: 17.35), controlPoint2: CGPoint(x: 13, y: 16.68))
-        bezier2Path.addCurve(to: CGPoint(x: 20, y: 9), controlPoint1: CGPoint(x: 16.87, y: 16), controlPoint2: CGPoint(x: 20, y: 12.87))
-        bezier2Path.addCurve(to: CGPoint(x: 13, y: 2), controlPoint1: CGPoint(x: 20, y: 5.13), controlPoint2: CGPoint(x: 16.87, y: 2))
-        bezier2Path.addCurve(to: CGPoint(x: 6.55, y: 6.27), controlPoint1: CGPoint(x: 10.1, y: 2), controlPoint2: CGPoint(x: 7.62, y: 3.76))
-        bezier2Path.addCurve(to: CGPoint(x: 6, y: 9), controlPoint1: CGPoint(x: 6.2, y: 7.11), controlPoint2: CGPoint(x: 6, y: 8.03))
+        bezier2Path.addCurve(
+            to: CGPoint(x: 13, y: 18),
+            controlPoint1: CGPoint(x: 22, y: 13.97),
+            controlPoint2: CGPoint(x: 17.97, y: 18)
+        )
+        bezier2Path.addCurve(
+            to: CGPoint(x: 13, y: 16),
+            controlPoint1: CGPoint(x: 13, y: 17.35),
+            controlPoint2: CGPoint(x: 13, y: 16.68)
+        )
+        bezier2Path.addCurve(
+            to: CGPoint(x: 20, y: 9),
+            controlPoint1: CGPoint(x: 16.87, y: 16),
+            controlPoint2: CGPoint(x: 20, y: 12.87)
+        )
+        bezier2Path.addCurve(
+            to: CGPoint(x: 13, y: 2),
+            controlPoint1: CGPoint(x: 20, y: 5.13),
+            controlPoint2: CGPoint(x: 16.87, y: 2)
+        )
+        bezier2Path.addCurve(
+            to: CGPoint(x: 6.55, y: 6.27),
+            controlPoint1: CGPoint(x: 10.1, y: 2),
+            controlPoint2: CGPoint(x: 7.62, y: 3.76)
+        )
+        bezier2Path.addCurve(
+            to: CGPoint(x: 6, y: 9),
+            controlPoint1: CGPoint(x: 6.2, y: 7.11),
+            controlPoint2: CGPoint(x: 6, y: 8.03)
+        )
         bezier2Path.addLine(to: CGPoint(x: 4, y: 9))
-        bezier2Path.addCurve(to: CGPoint(x: 4.65, y: 5.63), controlPoint1: CGPoint(x: 4, y: 7.81), controlPoint2: CGPoint(x: 4.23, y: 6.67))
-        bezier2Path.addCurve(to: CGPoint(x: 7.65, y: 1.76), controlPoint1: CGPoint(x: 5.28, y: 4.08), controlPoint2: CGPoint(x: 6.32, y: 2.74))
-        bezier2Path.addCurve(to: CGPoint(x: 13, y: 0), controlPoint1: CGPoint(x: 9.15, y: 0.65), controlPoint2: CGPoint(x: 11, y: 0))
-        bezier2Path.addCurve(to: CGPoint(x: 22, y: 9), controlPoint1: CGPoint(x: 17.97, y: 0), controlPoint2: CGPoint(x: 22, y: 4.03))
+        bezier2Path.addCurve(
+            to: CGPoint(x: 4.65, y: 5.63),
+            controlPoint1: CGPoint(x: 4, y: 7.81),
+            controlPoint2: CGPoint(x: 4.23, y: 6.67)
+        )
+        bezier2Path.addCurve(
+            to: CGPoint(x: 7.65, y: 1.76),
+            controlPoint1: CGPoint(x: 5.28, y: 4.08),
+            controlPoint2: CGPoint(x: 6.32, y: 2.74)
+        )
+        bezier2Path.addCurve(
+            to: CGPoint(x: 13, y: 0),
+            controlPoint1: CGPoint(x: 9.15, y: 0.65),
+            controlPoint2: CGPoint(x: 11, y: 0)
+        )
+        bezier2Path.addCurve(
+            to: CGPoint(x: 22, y: 9),
+            controlPoint1: CGPoint(x: 17.97, y: 0),
+            controlPoint2: CGPoint(x: 22, y: 4.03)
+        )
         bezier2Path.close()
         UIColor.white.setFill()
         bezier2Path.fill()

@@ -10,7 +10,6 @@ import Mantis
 import UIKit
 
 class CustomWaitingIndicator: UIView, Mantis.ActivityIndicatorProtocol {
-    
     private let circleLayer = CAShapeLayer()
     
     override init(frame: CGRect) {

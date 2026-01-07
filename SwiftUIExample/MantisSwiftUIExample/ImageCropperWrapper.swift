@@ -53,7 +53,6 @@ struct ImageCropperWrapper: View {
                             Image(systemName: "rotate.left")
                         }
                         
-                        
                         Button(action: {
                             action = .reset
                         }) {
@@ -109,10 +108,12 @@ extension ImageCropperWrapper {
         config.cropViewConfig.cropShapeType = cropShapeType
         config.presetFixedRatioType = presetFixedRatioType
         
-        return ImageCropperView(config: config,
-                                image: $image,
-                                transformation: $transformation,
-                                cropInfo: .constant(nil)) {
+        return ImageCropperView(
+            config: config,
+            image: $image,
+            transformation: $transformation,
+            cropInfo: .constant(nil)
+        ) {
             presentationMode.wrappedValue.dismiss()
         }
     }
@@ -121,7 +122,12 @@ extension ImageCropperWrapper {
         var config = Mantis.Config()
         config.cropViewConfig.showAttachedRotationControlView = false
         
-        return ImageCropperView(config: config, image: $image, transformation: $transformation, cropInfo: .constant(nil)) {
+        return ImageCropperView(
+            config: config,
+            image: $image,
+            transformation: $transformation,
+            cropInfo: .constant(nil)
+        ) {
             presentationMode.wrappedValue.dismiss()
         }
     }
@@ -131,11 +137,13 @@ extension ImageCropperWrapper {
         config.showAttachedCropToolbar = false
         config.enableUndoRedo = true
         
-        return ImageCropperView(config: config,
-                                image: $image,
-                                transformation: $transformation,
-                                cropInfo: .constant(nil),
-                                action: $action) {
+        return ImageCropperView(
+            config: config,
+            image: $image,
+            transformation: $transformation,
+            cropInfo: .constant(nil),
+            action: $action
+        ) {
             presentationMode.wrappedValue.dismiss()
         }
     }
@@ -143,8 +151,10 @@ extension ImageCropperWrapper {
 
 extension View {
     @ViewBuilder
-    func `if`<Content: View>(_ condition: Bool,
-                             transform: (Self) -> Content) -> some View {
+    func `if`(
+        _ condition: Bool,
+        transform: (Self) -> some View
+    ) -> some View {
         if condition {
             transform(self)
         } else {

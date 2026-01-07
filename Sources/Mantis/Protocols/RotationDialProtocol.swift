@@ -28,7 +28,8 @@ public protocol RotationControlViewProtocol: UIView {
      - Return true when the value does not exceeds the limitation or there is no limitation
      - Return false when the value exceeds the limitation
      */
-    @discardableResult func updateRotationValue(by angle: Angle) -> Bool
+    @discardableResult
+    func updateRotationValue(by angle: Angle) -> Bool
     
     /**
      Reset rotation control view to initial status
@@ -77,15 +78,15 @@ public protocol RotationControlViewProtocol: UIView {
 }
 
 extension RotationControlViewProtocol {
-    func setupUI(withAllowableFrame allowableFrame: CGRect) {}
-    func getTouchTarget(with point: CGPoint) -> UIView {
-        return self
+    func setupUI(withAllowableFrame _: CGRect) { }
+    func getTouchTarget(with _: CGPoint) -> UIView {
+        self
     }
     
-    func handleDeviceRotation() {}
+    func handleDeviceRotation() { }
     
     func getLengthRatio() -> CGFloat {
-        return 0.6
+        0.6
     }
     
     func setAccessibilities() {

@@ -15,11 +15,11 @@ enum GridLineNumberType {
     func getIndicatorLineNumber() -> Int {
         switch self {
         case .none:
-            return 0
+            0
         case .crop:
-            return 2
+            2
         case .rotate:
-            return 8
+            8
         }
     }
 }

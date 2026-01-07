@@ -1,9 +1,8 @@
-import XCTest
 @testable import Mantis
+import XCTest
 
 final class MantisTests: XCTestCase {
-    func testExample() {
-    }
+    func testExample() { }
 
     static var allTests = [
         ("testExample", testExample)

@@ -5,8 +5,8 @@
 //  Created by Yingtao Guo on 2/2/23.
 //
 
-import UIKit
 @testable import Mantis
+import UIKit
 
 class FakeCropToolbar: UIView, CropToolbarProtocol {
     var config = CropToolbarConfig()
@@ -25,12 +25,12 @@ class FakeCropToolbar: UIView, CropToolbarProtocol {
         self.config = config
     }
     
-    func handleFixedRatioSetted(ratio: Double) {
+    func handleFixedRatioSetted(ratio _: Double) {
         didHandleFixedRatioSetted = true
     }
     
     func handleFixedRatioUnSetted() {
-        didHandleFixedRatioUnSetted = true        
+        didHandleFixedRatioUnSetted = true
     }
     
     func respondToOrientationChange() {

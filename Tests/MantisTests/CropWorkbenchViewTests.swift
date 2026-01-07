@@ -5,12 +5,16 @@
 //  Created by Yingtao Guo on 2/14/23.
 //
 
-import XCTest
 @testable import Mantis
+import XCTest
 
 final class CropWorkbenchViewTests: XCTestCase {
-    
-    var workbenchView = CropWorkbenchView(frame: .zero, minimumZoomScale: 1.0, maximumZoomScale: 15, imageContainer: FakeImageContainer(frame: .zero))
+    var workbenchView = CropWorkbenchView(
+        frame: .zero,
+        minimumZoomScale: 1.0,
+        maximumZoomScale: 15,
+        imageContainer: FakeImageContainer(frame: .zero)
+    )
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -22,19 +26,23 @@ final class CropWorkbenchViewTests: XCTestCase {
 
     func testUpdateMinZoomScale() {
         let fakeImageContainer = FakeImageContainer(frame: .init(x: 0, y: 0, width: 200, height: 100))
-        workbenchView = CropWorkbenchView(frame: .zero,
-                                         minimumZoomScale: 1.0,
-                                         maximumZoomScale: 15,
-                                         imageContainer: fakeImageContainer)
+        workbenchView = CropWorkbenchView(
+            frame: .zero,
+            minimumZoomScale: 1.0,
+            maximumZoomScale: 15,
+            imageContainer: fakeImageContainer
+        )
         workbenchView.bounds = CGRect(x: 0, y: 0, width: 400, height: 100)
         workbenchView.updateMinZoomScale()
         
         XCTAssertEqual(workbenchView.minimumZoomScale, 2)
         
-        workbenchView = CropWorkbenchView(frame: .zero,
-                                         minimumZoomScale: 1.0,
-                                         maximumZoomScale: 15,
-                                         imageContainer: fakeImageContainer)
+        workbenchView = CropWorkbenchView(
+            frame: .zero,
+            minimumZoomScale: 1.0,
+            maximumZoomScale: 15,
+            imageContainer: fakeImageContainer
+        )
         workbenchView.bounds = CGRect(x: 0, y: 0, width: 400, height: 300)
         workbenchView.updateMinZoomScale()
         

@@ -16,9 +16,10 @@ final class CropMaskVisualEffectView: UIVisualEffectView, CropMaskProtocol {
     
     private var translucencyEffect: UIVisualEffect?
     
-    convenience init(cropShapeType: CropShapeType = .rect,
-                     effectType: CropMaskVisualEffectType = .blurDark) {
-        
+    convenience init(
+        cropShapeType: CropShapeType = .rect,
+        effectType: CropMaskVisualEffectType = .blurDark
+    ) {
         let (translucencyEffect, backgroundColor) = CropMaskVisualEffectView.getEffect(byType: effectType)
         
         self.init(effect: translucencyEffect)
@@ -28,7 +29,7 @@ final class CropMaskVisualEffectView: UIVisualEffectView, CropMaskProtocol {
     }
         
     func setMask(cropRatio: CGFloat) {
-        maskLayer?.removeFromSuperlayer()        
+        maskLayer?.removeFromSuperlayer()
         maskLayer = createMaskLayer(opacity: 0.98, cropRatio: cropRatio)
         
         let maskView = UIView(frame: self.bounds)
@@ -41,15 +42,15 @@ final class CropMaskVisualEffectView: UIVisualEffectView, CropMaskProtocol {
     static func getEffect(byType type: CropMaskVisualEffectType) -> (UIVisualEffect?, UIColor) {
         switch type {
         case .blurDark:
-            return (UIBlurEffect(style: .dark), .clear)
+            (UIBlurEffect(style: .dark), .clear)
         case .dark:
-            return (nil, UIColor.black.withAlphaComponent(0.75))
+            (nil, UIColor.black.withAlphaComponent(0.75))
         case .light:
-            return (nil, UIColor.black.withAlphaComponent(0.35))
+            (nil, UIColor.black.withAlphaComponent(0.35))
         case .custom(let color):
-            return(nil, color)
+            (nil, color)
         case .default:
-            return (nil, .black)
+            (nil, .black)
         }
     }
 }

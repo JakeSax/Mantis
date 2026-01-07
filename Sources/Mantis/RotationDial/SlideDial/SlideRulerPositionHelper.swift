@@ -20,30 +20,30 @@ protocol SlideRulerPositionHelper {
 }
 
 extension SlideRulerPositionHelper {
-    func handleOffsetRatioWhenScrolling(_ scrollView: UIScrollView) {}
+    func handleOffsetRatioWhenScrolling(_: UIScrollView) { }
 }
 
 final class UnilateralTypeSlideRulerPositionHelper: SlideRulerPositionHelper {
     var slideRuler: SlideRuler!
     
     func getInitialOffsetRatio() -> CGFloat {
-        return 0
+        0
     }
     
     func getCentralDotOriginX() -> CGFloat {
-        return slideRuler.pointer.frame.origin.x - slideRuler.dotWidth / 2
+        slideRuler.pointer.frame.origin.x - slideRuler.dotWidth / 2
     }
     
     func getRulerOffsetX(with progress: CGFloat) -> CGFloat {
-        return progress * slideRuler.scrollRulerView.frame.width
+        progress * slideRuler.scrollRulerView.frame.width
     }
     
     func checkIsCenterPosition(with limit: CGFloat) -> Bool {
-        return abs(slideRuler.scrollRulerView.contentOffset.x) < limit
+        abs(slideRuler.scrollRulerView.contentOffset.x) < limit
     }
     
     func getForceAlignCenterX() -> CGFloat {
-        return 0
+        0
     }
     
     func getOffsetRatio() -> CGFloat {
@@ -61,23 +61,23 @@ final class BilateralTypeSlideRulerPositionHelper: SlideRulerPositionHelper {
     var slideRuler: SlideRuler!
     
     func getInitialOffsetRatio() -> CGFloat {
-        return 0.5
+        0.5
     }
     
     func getCentralDotOriginX() -> CGFloat {
-        return slideRuler.frame.width - slideRuler.dotWidth / 2
+        slideRuler.frame.width - slideRuler.dotWidth / 2
     }
     
     func getRulerOffsetX(with progress: CGFloat) -> CGFloat {
-        return progress * slideRuler.offsetValue + slideRuler.offsetValue
+        progress * slideRuler.offsetValue + slideRuler.offsetValue
     }
     
     func checkIsCenterPosition(with limit: CGFloat) -> Bool {
-        return abs(slideRuler.scrollRulerView.contentOffset.x - slideRuler.frame.width / 2) < limit
+        abs(slideRuler.scrollRulerView.contentOffset.x - slideRuler.frame.width / 2) < limit
     }
     
     func getForceAlignCenterX() -> CGFloat {
-        return slideRuler.frame.width / 2
+        slideRuler.frame.width / 2
     }
     
     func getOffsetRatio() -> CGFloat {

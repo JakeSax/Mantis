@@ -32,7 +32,6 @@ public final class LocalizationConfig {
     
 // MARK: - Config
 public struct Config {
-    
     public enum CropMode {
         case sync
         case async // We may need this mode when cropping big images
@@ -40,7 +39,7 @@ public struct Config {
         
     public var cropMode: CropMode = .sync
     
-    public var cropViewConfig = CropViewConfig()    
+    public var cropViewConfig = CropViewConfig()
     public var cropToolbarConfig = CropToolbarConfig()
     
     public var ratioOptions: RatioOptions = .all
@@ -51,11 +50,9 @@ public struct Config {
     
     var customRatios: [(width: Int, height: Int)] = []
 
-    static private var bundleIdentifier: String = {
-        return "com.echo.framework.Mantis"
-    }()
+    private static var bundleIdentifier: String = "com.echo.framework.Mantis"
 
-    static private(set) var bundle: Bundle? = {
+    private(set) static var bundle: Bundle? = {
         guard let bundle = Bundle(identifier: bundleIdentifier) else {
             return nil
         }
@@ -71,26 +68,30 @@ public struct Config {
     
     static var language: Language?
 
-    public init() {}
+    public init() { }
 
-    mutating public func addCustomRatio(byHorizontalWidth width: Int, andHorizontalHeight height: Int) {
+    public mutating func addCustomRatio(byHorizontalWidth width: Int, andHorizontalHeight height: Int) {
         assert(width > 0 && height > 0)
         customRatios.append((width, height))
     }
 
-    mutating public func addCustomRatio(byVerticalWidth width: Int, andVerticalHeight height: Int) {
+    public mutating func addCustomRatio(byVerticalWidth width: Int, andVerticalHeight height: Int) {
         assert(width > 0 && height > 0)
         customRatios.append((height, width))
     }
 
     var hasCustomRatios: Bool {
-        return !customRatios.isEmpty
+        !customRatios.isEmpty
     }
 
     var customRatioItems: [RatioItemType?] {
-        return customRatios.map {
-            RatioItemType(nameH: String("\($0.width):\($0.height)"), ratioH: Double($0.width)/Double($0.height),
-                          nameV: String("\($0.height):\($0.width)"), ratioV: Double($0.height)/Double($0.width))
+        customRatios.map {
+            RatioItemType(
+                nameH: String("\($0.width):\($0.height)"),
+                ratioH: Double($0.width) / Double($0.height),
+                nameV: String("\($0.height):\($0.width)"),
+                ratioV: Double($0.height) / Double($0.width)
+            )
         }
     }
 }

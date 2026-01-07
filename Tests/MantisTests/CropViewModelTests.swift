@@ -5,11 +5,10 @@
 //  Created by yingtguo on 1/19/23.
 //
 
-import XCTest
 @testable import Mantis
+import XCTest
 
 final class CropViewModelTests: XCTestCase {
-    
     var viewModel: CropViewModel!
 
     override func setUpWithError() throws {
@@ -167,22 +166,42 @@ final class CropViewModelTests: XCTestCase {
         
         // Test streching out the crop box from bottom left
         var touchPoint = CGPoint(x: 10, y: 210)
-        var newCropBoxFrame = viewModel.getNewCropBoxFrame(withTouchPoint: touchPoint, andContentFrame: contentFrame, aspectRatioLockEnabled: false)
+        var newCropBoxFrame = viewModel.getNewCropBoxFrame(
+            withTouchPoint: touchPoint,
+            andContentFrame: contentFrame,
+            aspectRatioLockEnabled: false
+        )
         XCTAssertTrue(newCropBoxFrame.width > contentFrame.width)
         XCTAssertTrue(newCropBoxFrame.height > contentFrame.height)
         XCTAssertNotEqual(newCropBoxFrame.width / newCropBoxFrame.height, contentFrame.width / contentFrame.height)
 
-        newCropBoxFrame = viewModel.getNewCropBoxFrame(withTouchPoint: touchPoint, andContentFrame: contentFrame, aspectRatioLockEnabled: true)
+        newCropBoxFrame = viewModel.getNewCropBoxFrame(
+            withTouchPoint: touchPoint,
+            andContentFrame: contentFrame,
+            aspectRatioLockEnabled: true
+        )
         XCTAssertTrue(newCropBoxFrame.width > contentFrame.width)
         XCTAssertTrue(newCropBoxFrame.height > contentFrame.height)
-        XCTAssertEqual(newCropBoxFrame.width / newCropBoxFrame.height, contentFrame.width / contentFrame.height, accuracy: 0.1)
+        XCTAssertEqual(
+            newCropBoxFrame.width / newCropBoxFrame.height,
+            contentFrame.width / contentFrame.height,
+            accuracy: 0.1
+        )
         
         // Test squizzing in the crop box from bottom left
         touchPoint = CGPoint(x: 20, y: 190)
-        newCropBoxFrame = viewModel.getNewCropBoxFrame(withTouchPoint: touchPoint, andContentFrame: contentFrame, aspectRatioLockEnabled: true)
+        newCropBoxFrame = viewModel.getNewCropBoxFrame(
+            withTouchPoint: touchPoint,
+            andContentFrame: contentFrame,
+            aspectRatioLockEnabled: true
+        )
         XCTAssertTrue(newCropBoxFrame.width < contentFrame.width)
         XCTAssertTrue(newCropBoxFrame.height < contentFrame.height)
-        XCTAssertEqual(newCropBoxFrame.width / newCropBoxFrame.height, contentFrame.width / contentFrame.height, accuracy: 0.1)
+        XCTAssertEqual(
+            newCropBoxFrame.width / newCropBoxFrame.height,
+            contentFrame.width / contentFrame.height,
+            accuracy: 0.1
+        )
     }
     
     func testSetCropBoxFrame() {

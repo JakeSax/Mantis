@@ -5,27 +5,17 @@
 //  Created by Yingtao Guo on 2/3/23.
 //
 
-import UIKit
 @testable import Mantis
+import UIKit
 
 class FakeCropMaskViewManager: CropMaskViewManagerProtocol {
-    func setup(in view: UIView, cropRatio: CGFloat) {
-        
-    }
+    func setup(in _: UIView, cropRatio _: CGFloat) { }
     
-    func removeMaskViews() {
-        
-    }
+    func removeMaskViews() { }
     
-    func showDimmingBackground(animated: Bool) {
-        
-    }
+    func showDimmingBackground(animated _: Bool) { }
     
-    func showVisualEffectBackground(animated: Bool) {
-        
-    }
+    func showVisualEffectBackground(animated _: Bool) { }
     
-    func adaptMaskTo(match cropRect: CGRect, cropRatio: CGFloat) {
-        
-    }
+    func adaptMaskTo(match _: CGRect, cropRatio _: CGFloat) { }
 }

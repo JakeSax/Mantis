@@ -5,11 +5,10 @@
 //  Created by yingtguo on 2/2/23.
 //
 
-import XCTest
 @testable import Mantis
+import XCTest
 
 final class CropViewControllerTests: XCTestCase {
-    
     let cropVC = CropViewController()
     let fakeCropView = FakeCropView()
     let fakeCropToolbar = FakeCropToolbar()

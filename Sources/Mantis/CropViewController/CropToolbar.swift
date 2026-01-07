@@ -24,7 +24,10 @@ public final class CropToolbar: UIView, CropToolbarProtocol {
         let icon = iconProvider?.getCounterClockwiseRotationIcon() ?? ToolBarButtonImageBuilder.rotateCCWImage()
         button.setImage(icon, for: .normal)
         button.accessibilityIdentifier = "CounterClockwiseRotationButton"
-        button.accessibilityLabel = LocalizedHelper.getString("Mantis.CounterClockwise rotation", value: "CounterClockwise rotation")
+        button.accessibilityLabel = LocalizedHelper.getString(
+            "Mantis.CounterClockwise rotation",
+            value: "CounterClockwise rotation"
+        )
         return button
     }()
 
@@ -42,7 +45,10 @@ public final class CropToolbar: UIView, CropToolbarProtocol {
         let icon = iconProvider?.getAlterCropper90DegreeIcon() ?? ToolBarButtonImageBuilder.alterCropper90DegreeImage()
         button.setImage(icon, for: .normal)
         button.accessibilityIdentifier = "AlterCropper90DegreeButton"
-        button.accessibilityLabel = LocalizedHelper.getString("Mantis.Alter cropper by 90 degrees", value: "Alter cropper by 90 degrees")
+        button.accessibilityLabel = LocalizedHelper.getString(
+            "Mantis.Alter cropper by 90 degrees",
+            value: "Alter cropper by 90 degrees"
+        )
         return button
     }()
     
@@ -169,7 +175,7 @@ public final class CropToolbar: UIView, CropToolbarProtocol {
             resetButton?.isHidden = true
         }
 
-        if config.toolbarButtonOptions.contains(.ratio) && config.ratioCandidatesShowType == .presentRatioListFromButton {
+        if config.toolbarButtonOptions.contains(.ratio), config.ratioCandidatesShowType == .presentRatioListFromButton {
             if config.includeFixedRatiosSettingButton {
                 fixedRatioSettingButton = createSetRatioButton()
                 addButtonsToContainer(button: fixedRatioSettingButton!)
@@ -186,7 +192,7 @@ public final class CropToolbar: UIView, CropToolbarProtocol {
         }
     }
     
-    public override var intrinsicContentSize: CGSize {
+    override public var intrinsicContentSize: CGSize {
         let superSize = super.intrinsicContentSize
 
         if Orientation.treatAsPortrait {
@@ -197,7 +203,7 @@ public final class CropToolbar: UIView, CropToolbarProtocol {
     }
 
     public func getRatioListPresentSourceView() -> UIView? {
-        return fixedRatioSettingButton
+        fixedRatioSettingButton
     }
 
     public func adjustLayoutWhenOrientationChange() {
@@ -210,7 +216,7 @@ public final class CropToolbar: UIView, CropToolbarProtocol {
         }
     }
 
-    public func handleFixedRatioSetted(ratio: Double) {
+    public func handleFixedRatioSetted(ratio _: Double) {
         fixedRatioSettingButton?.tintColor = nil
     }
 
@@ -238,44 +244,54 @@ public final class CropToolbar: UIView, CropToolbarProtocol {
 
 // Objc functions
 extension CropToolbar {
-    @objc private func cancel() {
+    @objc
+    private func cancel() {
         delegate?.didSelectCancel(self)
     }
 
-    @objc private func setRatio() {
+    @objc
+    private func setRatio() {
         delegate?.didSelectSetRatio(self)
     }
 
-    @objc private func reset(_ sender: Any) {
+    @objc
+    private func reset(_: Any) {
         delegate?.didSelectReset(self)
     }
 
-    @objc private func counterClockwiseRotate(_ sender: Any) {
+    @objc
+    private func counterClockwiseRotate(_: Any) {
         delegate?.didSelectCounterClockwiseRotate(self)
     }
 
-    @objc private func clockwiseRotate(_ sender: Any) {
+    @objc
+    private func clockwiseRotate(_: Any) {
         delegate?.didSelectClockwiseRotate(self)
     }
 
-    @objc private func alterCropper90Degree(_ sender: Any) {
+    @objc
+    private func alterCropper90Degree(_: Any) {
         delegate?.didSelectAlterCropper90Degree(self)
     }
     
-    @objc private func horizontallyFlip(_ sender: Any) {
+    @objc
+    private func horizontallyFlip(_: Any) {
         delegate?.didSelectHorizontallyFlip(self)
     }
 
-    @objc private func verticallyFlip(_ sender: Any) {
+    @objc
+    private func verticallyFlip(_: Any) {
         delegate?.didSelectVerticallyFlip(self)
     }
     
-    @objc private func autoAdjust(_ sender: Any) {
+    @objc
+    private func autoAdjust(_: Any) {
         autoAdjustButtonActive.toggle()
         delegate?.didSelectAutoAdjust(self, isActive: autoAdjustButtonActive)
     }
 
-    @objc private func crop(_ sender: Any) {
+    @objc
+    private func crop(_: Any) {
         delegate?.didSelectCrop(self)
     }
 }
@@ -297,7 +313,7 @@ extension CropToolbar {
         
         let compressionPriority: Float
         
-        if let title = title {
+        if let title {
             button.setTitle(title, for: .normal)
             button.setTitleColor(buttonColor, for: .normal)
             button.accessibilityIdentifier = "\(title)"
@@ -317,7 +333,10 @@ extension CropToolbar {
         // Set width constraint
         button.widthAnchor.constraint(greaterThanOrEqualToConstant: button.intrinsicContentSize.width).isActive = true
         
-        button.setContentCompressionResistancePriority(UILayoutPriority(rawValue: compressionPriority), for: .horizontal)
+        button.setContentCompressionResistancePriority(
+            UILayoutPriority(rawValue: compressionPriority),
+            for: .horizontal
+        )
         button.setContentCompressionResistancePriority(UILayoutPriority(rawValue: compressionPriority), for: .vertical)
 
         button.addTarget(self, action: action, for: .touchUpInside)
@@ -331,7 +350,7 @@ extension CropToolbar {
 
     private func createResetButton(with image: UIImage? = nil) -> UIButton {
         let button: UIButton
-        if let image = image {
+        if let image {
             button = createOptionButton(withTitle: nil, andAction: #selector(reset))
             button.setImage(image, for: .normal)
         } else {
@@ -370,14 +389,14 @@ extension CropToolbar {
     }
 
     private func addButtonsToContainer(button: UIButton?) {
-        if let button = button {
+        if let button {
             optionButtonStackView?.addArrangedSubview(button)
         }
     }
 
     private func addButtonsToContainer(buttons: [UIButton?]) {
-        buttons.forEach {
-            if let button = $0 {
+        for item in buttons {
+            if let button = item {
                 optionButtonStackView?.addArrangedSubview(button)
             }
         }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-public final class RatioSelector: UIView {    
+public final class RatioSelector: UIView {
     var didGetRatio: ((Double) -> Void) = { _ in }
     private var type: RatioType = .vertical
     private var originalRatioH: Double = 0.0
@@ -41,7 +41,7 @@ public final class RatioSelector: UIView {
         setupViews()
     }
 
-    public override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         setupViews()
     }
@@ -52,7 +52,7 @@ public final class RatioSelector: UIView {
     }
     
     func update(fixedRatioManager: FixedRatioManager?) {
-        guard let fixedRatioManager = fixedRatioManager else { return }
+        guard let fixedRatioManager else { return }
         ratios = fixedRatioManager.ratios
         type = fixedRatioManager.type
         originalRatioH = fixedRatioManager.originalRatioH
@@ -75,10 +75,10 @@ public final class RatioSelector: UIView {
     private func addRatioItems() {
         for (index, item) in ratios.enumerated() {
             let itemView = RatioItemView(type: type, item: item)
-            itemView.selected = index == 0            
+            itemView.selected = index == 0
             stackView.addArrangedSubview(itemView)
 
-            itemView.didGetRatio = {[weak self] ratio in
+            itemView.didGetRatio = { [weak self] ratio in
                 let ratioValue = (self?.type == .horizontal) ? ratio.ratioH : ratio.ratioV
                 self?.didGetRatio(ratioValue)
                 

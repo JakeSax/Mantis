@@ -28,9 +28,9 @@ import UIKit
 typealias RadiansAngle = CGFloat
 
 extension FloatingPoint {
-    var isBad: Bool { return isNaN || isInfinite }
+    var isBad: Bool { isNaN || isInfinite }
     var checked: Self {
-        guard !isBad && !isInfinite else {
+        guard !isBad, !isInfinite else {
             fatalError("bad number!")
         }
         return self
@@ -38,7 +38,7 @@ extension FloatingPoint {
 }
 
 extension CGSize {
-    var hasNaN: Bool {return width.isBad || height.isBad }
+    var hasNaN: Bool { width.isBad || height.isBad }
     var checked: CGSize {
         guard !hasNaN else {
             fatalError("bad number!")
@@ -48,8 +48,8 @@ extension CGSize {
 }
 
 extension CGRect {
-    var center: CGPoint { return CGPoint(x: midX, y: midY).checked }
-    var hasNaN: Bool {return size.hasNaN || origin.hasNaN}
+    var center: CGPoint { CGPoint(x: midX, y: midY).checked }
+    var hasNaN: Bool { size.hasNaN || origin.hasNaN }
     var checked: CGRect {
         guard !hasNaN else {
             fatalError("bad number!")
@@ -59,18 +59,19 @@ extension CGRect {
 }
 
 extension CGPoint {
-    var vector: CGVector { return CGVector(dx: x, dy: y).checked }
+    var vector: CGVector { CGVector(dx: x, dy: y).checked }
     var checked: CGPoint {
         guard !hasNaN else {
             fatalError("bad number!")
         }
         return self
     }
-    var hasNaN: Bool {return x.isBad || y.isBad }
+
+    var hasNaN: Bool { x.isBad || y.isBad }
 }
 
 extension CGVector {
-    var hasNaN: Bool { return dx.isBad || dy.isBad }
+    var hasNaN: Bool { dx.isBad || dy.isBad }
     var checked: CGVector {
         guard !hasNaN else {
             fatalError("bad number!")
@@ -78,19 +79,22 @@ extension CGVector {
         return self
     }
     
-    static var root: CGVector { return CGVector(dx: 1, dy: 0).checked }
-    var magnitude: CGFloat { return sqrt(pow(dx, 2) + pow(dy, 2)).checked }
-    var normalized: CGVector { return CGVector(dx: dx / magnitude, dy: dy / magnitude).checked }
-    var point: CGPoint { return CGPoint(x: dx, y: dy).checked }
-    func rotate(_ angle: RadiansAngle) -> CGVector { return CGVector(dx: dx * cos(angle) - dy * sin(angle), dy: dx * sin(angle) + dy * cos(angle) ).checked}
+    static var root: CGVector { CGVector(dx: 1, dy: 0).checked }
+    var magnitude: CGFloat { sqrt(pow(dx, 2) + pow(dy, 2)).checked }
+    var normalized: CGVector { CGVector(dx: dx / magnitude, dy: dy / magnitude).checked }
+    var point: CGPoint { CGPoint(x: dx, y: dy).checked }
+    func rotate(_ angle: RadiansAngle) -> CGVector { CGVector(
+        dx: dx * cos(angle) - dy * sin(angle),
+        dy: dx * sin(angle) + dy * cos(angle)
+    ).checked }
     
-    func dot(_ vec2: CGVector) -> CGFloat { return (dx * vec2.dx + dy * vec2.dy).checked}
-    func add(_ vec2: CGVector) -> CGVector { return CGVector(dx: dx + vec2.dx, dy: dy + vec2.dy).checked}
-    func cross(_ vec2: CGVector) -> CGFloat { return (dx * vec2.dy - dy * vec2.dx).checked}
-    func scale(_ scale: CGFloat) -> CGVector { return CGVector(dx: dx * scale, dy: dy * scale).checked}
+    func dot(_ vec2: CGVector) -> CGFloat { (dx * vec2.dx + dy * vec2.dy).checked }
+    func add(_ vec2: CGVector) -> CGVector { CGVector(dx: dx + vec2.dx, dy: dy + vec2.dy).checked }
+    func cross(_ vec2: CGVector) -> CGFloat { (dx * vec2.dy - dy * vec2.dx).checked }
+    func scale(_ scale: CGFloat) -> CGVector { CGVector(dx: dx * scale, dy: dy * scale).checked }
     
     init(fromPoint: CGPoint, toPoint: CGPoint) {
-        guard !fromPoint.hasNaN && !toPoint.hasNaN  else {
+        guard !fromPoint.hasNaN, !toPoint.hasNaN else {
             fatalError("Nan point!")
         }
         self.init()
@@ -108,7 +112,8 @@ extension CGVector {
     }
     
     var theta: RadiansAngle {
-        return atan2(dy, dx)}
+        atan2(dy, dx)
+    }
     
     static func theta(_ vec1: CGVector, vec2: CGVector) -> RadiansAngle {
         var result = vec1.normalized.dot(vec2.normalized)
@@ -121,7 +126,6 @@ extension CGVector {
     }
     
     static func signedTheta(_ vec1: CGVector, vec2: CGVector) -> RadiansAngle {
-        
-        return (vec1.normalized.cross(vec2.normalized) > 0 ?  -1 : 1) * theta(vec1.normalized, vec2: vec2.normalized).checked
+        (vec1.normalized.cross(vec2.normalized) > 0 ? -1 : 1) * theta(vec1.normalized, vec2: vec2.normalized).checked
     }
 }

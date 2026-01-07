@@ -9,7 +9,7 @@
 import UIKit
 
 final class ImageContainer: UIView {
-    lazy private var imageView: UIImageView = {
+    private lazy var imageView: UIImageView = {
         let imageView = UIImageView(frame: bounds)
         addSubview(imageView)
         
@@ -27,7 +27,8 @@ final class ImageContainer: UIView {
         imageView.image = image
     }
     
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -60,10 +61,12 @@ extension ImageContainer: ImageContainerProtocol {
         bottomLeft = CGPoint(x: bottomLeft.x / bounds.width, y: bottomLeft.y / bounds.height)
         bottomRight = CGPoint(x: bottomRight.x / bounds.width, y: bottomRight.y / bounds.height)
         
-        return CropRegion(topLeft: topLeft,
-                          topRight: topRight,
-                          bottomLeft: bottomLeft,
-                          bottomRight: bottomRight)
+        return CropRegion(
+            topLeft: topLeft,
+            topRight: topRight,
+            bottomLeft: bottomLeft,
+            bottomRight: bottomRight
+        )
     }
     
     func update(_ image: UIImage) {

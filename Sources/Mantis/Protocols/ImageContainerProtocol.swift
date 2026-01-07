@@ -14,5 +14,5 @@ protocol ImageContainerProtocol: UIView {
 }
 
 extension ImageContainerProtocol {
-    func update(_ image: UIImage) {}
+    func update(_: UIImage) { }
 }

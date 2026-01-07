@@ -5,11 +5,10 @@
 //  Created by yingtguo on 2/2/23.
 //
 
-import XCTest
 @testable import Mantis
+import XCTest
 
 final class CropToolbarTests: XCTestCase {
-    
     var cropToolbar = CropToolbar(frame: .zero)
 
     override func setUpWithError() throws {

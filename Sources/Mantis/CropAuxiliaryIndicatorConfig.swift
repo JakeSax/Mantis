@@ -37,5 +37,5 @@ public struct CropAuxiliaryIndicatorConfig {
      */
     public var gridSecondaryColor = UIColor.lightGray
     
-    public init() {}
+    public init() { }
 }

@@ -9,7 +9,7 @@
 import UIKit
 
 public struct RotationDialConfig {
-    public init() {}
+    public init() { }
 
     public var margin: Double = 0 {
         didSet {

@@ -13,8 +13,10 @@ final class CropMaskViewManager {
     private let visualEffectView: CropMaskProtocol
     private(set) var maskViews: [CropMaskProtocol]
     
-    init(dimmingView: CropMaskProtocol,
-         visualEffectView: CropMaskProtocol) {
+    init(
+        dimmingView: CropMaskProtocol,
+        visualEffectView: CropMaskProtocol
+    ) {
         self.dimmingView = dimmingView
         self.visualEffectView = visualEffectView
         maskViews = [dimmingView, visualEffectView]
@@ -33,7 +35,7 @@ final class CropMaskViewManager {
 
 extension CropMaskViewManager: CropMaskViewManagerProtocol {
     func setup(in view: UIView, cropRatio: CGFloat = 1.0) {
-        maskViews.forEach { maskView in
+        for maskView in maskViews {
             maskView.initialize(cropRatio: cropRatio)
             maskView.isUserInteractionEnabled = false
             view.addSubview(maskView)

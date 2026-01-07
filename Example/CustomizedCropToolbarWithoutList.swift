@@ -6,8 +6,8 @@
 //  Copyright © 2020 Echo. All rights reserved.
 //
 
-import UIKit
 import Mantis
+import UIKit
 
 class CustomizedCropToolbarWithoutList: UIView, CropToolbarProtocol {
     var iconProvider: CropToolbarIconProvider?
@@ -52,7 +52,7 @@ class CustomizedCropToolbarWithoutList: UIView, CropToolbarProtocol {
         stackView?.addArrangedSubview(cropButton!)
     }
     
-    public func handleFixedRatioSetted(ratio: Double) {
+    func handleFixedRatioSetted(ratio: Double) {
         switch ratio {
         case 9 / 16:
             portraitRatioButton?.setTitleColor(.blue, for: .normal)
@@ -64,13 +64,11 @@ class CustomizedCropToolbarWithoutList: UIView, CropToolbarProtocol {
             landscapeRatioButton?.setTitleColor(.white, for: .normal)
             portraitRatioButton?.setTitleColor(.white, for: .normal)
         }
-        
-    }
+     }
     
-    public func handleFixedRatioUnSetted() {
-    }
+    func handleFixedRatioUnSetted() { }
     
-    public override var intrinsicContentSize: CGSize {
+    override var intrinsicContentSize: CGSize {
         let superSize = super.intrinsicContentSize
         
         if Orientation.treatAsPortrait {
@@ -88,19 +86,23 @@ class CustomizedCropToolbarWithoutList: UIView, CropToolbarProtocol {
         }
     }
     
-    @objc private func crop() {
+    @objc
+    private func crop() {
         delegate?.didSelectCrop(self)
     }
     
-    @objc private func cancel() {
+    @objc
+    private func cancel() {
         delegate?.didSelectCancel(self)
     }
     
-    @objc private func setPortraitRatio() {
+    @objc
+    private func setPortraitRatio() {
         delegate?.didSelectRatio(self, ratio: 9 / 16)
     }
     
-    @objc private func setLandscapeRatio() {
+    @objc
+    private func setLandscapeRatio() {
         delegate?.didSelectRatio(self, ratio: 16 / 9)
     }
     
@@ -113,7 +115,7 @@ class CustomizedCropToolbarWithoutList: UIView, CropToolbarProtocol {
         button.tintColor = .white
         button.titleLabel?.font = buttonFont
         
-        if let title = title {
+        if let title {
             button.setTitle(title, for: .normal)
             button.setTitleColor(buttonColor, for: .normal)
         }

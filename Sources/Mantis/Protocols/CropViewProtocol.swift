@@ -62,10 +62,10 @@ extension CropViewProtocol {
         translatesAutoresizingMaskIntoConstraints = false
     }
     
-    func rotate(by angle: Angle) {}
+    func rotate(by _: Angle) { }
     
-    func update(_ image: UIImage) {}
+    func update(_: UIImage) { }
     
-    func zoomIn() {}    
-    func zoomOut() {}
+    func zoomIn() { }
+    func zoomOut() { }
 }

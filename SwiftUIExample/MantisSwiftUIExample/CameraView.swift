@@ -5,8 +5,8 @@
 //  Created by Yingtao Guo on 2/20/23.
 //
 
-import SwiftUI
 import PhotosUI
+import SwiftUI
 
 struct CameraView: UIViewControllerRepresentable {
     @Binding var image: UIImage?
@@ -18,7 +18,7 @@ struct CameraView: UIViewControllerRepresentable {
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+    func updateUIViewController(_: UIImagePickerController, context _: Context) { }
 
     func makeCoordinator() -> Coordinator {
         Coordinator(image: $image)
@@ -31,7 +31,10 @@ struct CameraView: UIViewControllerRepresentable {
             _image = image
         }
 
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        func imagePickerController(
+            _ picker: UIImagePickerController,
+            didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+        ) {
             if let selectedImage = info[.originalImage] as? UIImage {
                 self.image = selectedImage
             }

@@ -5,11 +5,10 @@
 //  Created by yingtguo on 2/3/23.
 //
 
-import XCTest
 @testable import Mantis
+import XCTest
 
 final class RotateDialTests: XCTestCase {
-    
     var dial: RotationDial!
     var dialPlate: RotationDialPlate!
     var viewModel: RotationDialViewModel!
@@ -26,10 +25,12 @@ final class RotateDialTests: XCTestCase {
     private func setup(with config: RotationDialConfig) {
         viewModel = RotationDialViewModel()
         dialPlate = RotationDialPlate(frame: .zero, config: config)
-        dial = RotationDial(frame: .zero,
-                            config: config,
-                            viewModel: viewModel,
-                            dialPlate: dialPlate)
+        dial = RotationDial(
+            frame: .zero,
+            config: config,
+            viewModel: viewModel,
+            dialPlate: dialPlate
+        )
         dial.setupUI(withAllowableFrame: .zero)
     }
     
@@ -83,5 +84,4 @@ final class RotateDialTests: XCTestCase {
         XCTAssertEqual(viewModel.rotationAngle.degrees, 0)
         XCTAssertEqual(dial.transform, .identity)
     }
-
 }

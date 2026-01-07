@@ -1,5 +1,5 @@
 //
-//  ImageAutoAdjuster.swift
+//  ImageAutoAdjustHelper.swift
 //  Mantis
 //
 //  Created by Yingtao Guo on 6/24/23.

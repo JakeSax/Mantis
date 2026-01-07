@@ -62,7 +62,8 @@ final class SlideRuler: UIView {
         positionInfoHelper.slideRuler = self
     }
     
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError()
     }
         
@@ -75,7 +76,8 @@ final class SlideRuler: UIView {
         setUIFrames()
     }
     
-    @objc func setSliderDelegate() {
+    @objc
+    func setSliderDelegate() {
         scrollRulerView.delegate = self
     }
     
@@ -90,25 +92,36 @@ final class SlideRuler: UIView {
         
         perform(#selector(setSliderDelegate), with: nil, afterDelay: 0.1)
 
-        pointer.frame = CGRect(x: (frame.width / 2 - pointerWidth / 2),
-                               y: bounds.origin.y + frame.height * 0.4,
-                               width: pointerWidth,
-                               height: frame.height * 0.6)
+        pointer.frame = CGRect(
+            x: frame.width / 2 - pointerWidth / 2,
+            y: bounds.origin.y + frame.height * 0.4,
+            width: pointerWidth,
+            height: frame.height * 0.6
+        )
         
         let centralDotOriginX = positionInfoHelper.getCentralDotOriginX()
         centralDot.frame = CGRect(x: centralDotOriginX, y: frame.height * 0.35, width: dotWidth, height: dotWidth)
         
         centralDot.path = UIBezierPath(ovalIn: centralDot.bounds).cgPath
         
-        scaleBarLayer.frame = CGRect(x: frame.width / 2, y: 0.6 * frame.height, width: frame.width, height: 0.4 * frame.height)
-        scaleBarLayer.instanceTransform = CATransform3DMakeTranslation((frame.width - scaleWidth) / CGFloat((config.scaleBarNumber - 1)), 0, 0)
+        scaleBarLayer.frame = CGRect(
+            x: frame.width / 2,
+            y: 0.6 * frame.height,
+            width: frame.width,
+            height: 0.4 * frame.height
+        )
+        scaleBarLayer.instanceTransform = CATransform3DMakeTranslation(
+            (frame.width - scaleWidth) / CGFloat(config.scaleBarNumber - 1),
+            0,
+            0
+        )
 
         scaleBarLayer.sublayers?.forEach {
             $0.frame = CGRect(x: 0, y: 0, width: 1, height: scaleBarLayer.frame.height)
         }
         
         majorScaleBarLayer.frame = scaleBarLayer.frame
-        let transationX = (frame.width - scaleWidth) / CGFloat((config.majorScaleBarNumber - 1))
+        let transationX = (frame.width - scaleWidth) / CGFloat(config.majorScaleBarNumber - 1)
         majorScaleBarLayer.instanceTransform = CATransform3DMakeTranslation(transationX, 0, 0)
         
         majorScaleBarLayer.sublayers?.forEach {
@@ -165,8 +178,8 @@ final class SlideRuler: UIView {
         scrollRulerView.delegate = self
         
         centralDot.isHidden = true
-        scaleBarLayer.sublayers?.forEach { $0.backgroundColor = scaleColor}
-        majorScaleBarLayer.sublayers?.forEach { $0.backgroundColor = majorScaleColor}
+        scaleBarLayer.sublayers?.forEach { $0.backgroundColor = scaleColor }
+        majorScaleBarLayer.sublayers?.forEach { $0.backgroundColor = majorScaleColor }
     }
         
     func checkCentralDotHiddenStatus() {
@@ -174,7 +187,7 @@ final class SlideRuler: UIView {
     }
     
     func getTouchTarget() -> UIView {
-        return scrollRulerView
+        scrollRulerView
     }
     
     func setOffsetRatio(_ offsetRatio: CGFloat) {
@@ -185,12 +198,12 @@ final class SlideRuler: UIView {
 }
 
 extension SlideRuler: UIScrollViewDelegate {
-    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+    func scrollViewDidEndDragging(_: UIScrollView, willDecelerate _: Bool) {
         checkCentralDotHiddenStatus()
         delegate?.didFinishScroll()
     }
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+    func scrollViewDidEndDecelerating(_: UIScrollView) {
         delegate?.didFinishScroll()
     }
     
@@ -202,11 +215,10 @@ extension SlideRuler: UIScrollViewDelegate {
         let limit = frame.width / CGFloat((config.scaleBarNumber - 1) * 2)
         
         func checkIsCenterPosition() -> Bool {
-            return positionInfoHelper.checkIsCenterPosition(with: limit)
-        }        
+            positionInfoHelper.checkIsCenterPosition(with: limit)
+        }
         
-        if checkIsCenterPosition() && abs(speed.x) < 10.0 {
-            
+        if checkIsCenterPosition(), abs(speed.x) < 10.0 {
             if !isReset {
                 isReset = true
                 
@@ -227,7 +239,7 @@ extension SlideRuler: UIScrollViewDelegate {
                 
                 forceAlignCenter()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.11) {
-                    usleep(1000000)
+                    usleep(1_000_000)
                 }
             }
         } else {

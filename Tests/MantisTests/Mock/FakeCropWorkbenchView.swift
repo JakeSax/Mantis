@@ -5,47 +5,33 @@
 //  Created by Yingtao Guo on 2/3/23.
 //
 
-import UIKit
 @testable import Mantis
+import UIKit
 
 class FakeCropWorkbenchView: UIScrollView, CropWorkbenchViewProtocol {
     var imageContainer: ImageContainerProtocol?
     
-    var touchesBegan: () -> Void = {}
+    var touchesBegan: () -> Void = { }
     
-    var touchesCancelled: () -> Void = {}
+    var touchesCancelled: () -> Void = { }
     
-    var touchesEnded: () -> Void = {}
+    var touchesEnded: () -> Void = { }
     
-    func checkContentOffset() {
-        
-    }
+    func checkContentOffset() { }
     
-    func updateContentOffset() {
-        
-    }
+    func updateContentOffset() { }
     
-    func updateMinZoomScale() {
-        
-    }
+    func updateMinZoomScale() { }
     
-    func zoomScaleToBound(animated: Bool) {
-        
-    }
+    func zoomScaleToBound(animated _: Bool) { }
     
     func shouldScale() -> Bool {
         false
     }
     
-    func updateLayout(byNewSize newSize: CGSize) {
-        
-    }
+    func updateLayout(byNewSize _: CGSize) { }
     
-    func reset(by rect: CGRect) {
-        
-    }
+    func reset(by _: CGRect) { }
     
-    func resetImageContent(by cropBoxFrame: CGRect) {
-        
-    }
+    func resetImageContent(by _: CGRect) { }
 }

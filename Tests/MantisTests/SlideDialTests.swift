@@ -5,11 +5,10 @@
 //  Created by Yingtao Guo on 6/20/23.
 //
 
-import XCTest
 @testable import Mantis
+import XCTest
 
 final class SlideDialTests: XCTestCase {
-    
     var dial: SlideDial!
     var slideRuler: SlideRuler!
     var viewModel: SlideDialViewModel!
@@ -26,10 +25,12 @@ final class SlideDialTests: XCTestCase {
     private func setup(with config: SlideDialConfig) {
         viewModel = SlideDialViewModel()
         slideRuler = SlideRuler(frame: .zero, config: config)
-        dial = SlideDial(frame: .zero,
-                         config: config,
-                         viewModel: viewModel,
-                         slideRuler: slideRuler)
+        dial = SlideDial(
+            frame: .zero,
+            config: config,
+            viewModel: viewModel,
+            slideRuler: slideRuler
+        )
         dial.setupUI(withAllowableFrame: .zero)
     }
     

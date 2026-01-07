@@ -65,5 +65,5 @@ public struct CropToolbarConfig {
      */
     public var mode: CropToolbarMode = .normal
     
-    public init() {}
+    public init() { }
 }

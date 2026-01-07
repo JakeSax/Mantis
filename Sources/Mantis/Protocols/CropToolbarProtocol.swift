@@ -8,7 +8,7 @@
 import UIKit
 
 /**
-    Inside Mantis, CropViewController implements all delegate methods 
+    Inside Mantis, CropViewController implements all delegate methods
  */
 public protocol CropToolbarDelegate: AnyObject {
     func didSelectCancel(_ cropToolbar: CropToolbarProtocol?)
@@ -31,22 +31,22 @@ public protocol CropToolbarDelegate: AnyObject {
 }
 
 public extension CropToolbarDelegate {
-    func didSelectCounterClockwiseRotate(_ cropToolbar: CropToolbarProtocol?) {}
-    func didSelectClockwiseRotate(_ cropToolbar: CropToolbarProtocol?) {}
-    func didSelectReset(_ cropToolbar: CropToolbarProtocol?) {}
-    func didSelectSetRatio(_ cropToolbar: CropToolbarProtocol?) {}
-    func didSelectRatio(_ cropToolbar: CropToolbarProtocol?, ratio: Double) {}
-    func didSelectFreeRatio(_ cropToolbar: CropToolbarProtocol?) {}
-    func didSelectAlterCropper90Degree(_ cropToolbar: CropToolbarProtocol?) {}
-    func didSelectHorizontallyFlip(_ cropToolbar: CropToolbarProtocol?) {}
-    func didSelectVerticallyFlip(_ cropToolbar: CropToolbarProtocol?) {}
-    func didSelectAutoAdjust(_ cropToolbar: CropToolbarProtocol?) {}
-    func didSelectUndo(_ cropToolbar: CropToolbarProtocol?) {}
-    func didSelectRedo(_ cropToolbar: CropToolbarProtocol?) {}
-    func isUndoSupported(_ cropToolbar: CropToolbarProtocol?) -> Bool { return false }
-    func undoActionName(_ cropToolbar: CropToolbarProtocol?) -> String { return "undo" }
-    func redoActionName(_ cropToolbar: CropToolbarProtocol?) -> String {
-        return "redo"
+    func didSelectCounterClockwiseRotate(_: CropToolbarProtocol?) { }
+    func didSelectClockwiseRotate(_: CropToolbarProtocol?) { }
+    func didSelectReset(_: CropToolbarProtocol?) { }
+    func didSelectSetRatio(_: CropToolbarProtocol?) { }
+    func didSelectRatio(_: CropToolbarProtocol?, ratio _: Double) { }
+    func didSelectFreeRatio(_: CropToolbarProtocol?) { }
+    func didSelectAlterCropper90Degree(_: CropToolbarProtocol?) { }
+    func didSelectHorizontallyFlip(_: CropToolbarProtocol?) { }
+    func didSelectVerticallyFlip(_: CropToolbarProtocol?) { }
+    func didSelectAutoAdjust(_: CropToolbarProtocol?) { }
+    func didSelectUndo(_: CropToolbarProtocol?) { }
+    func didSelectRedo(_: CropToolbarProtocol?) { }
+    func isUndoSupported(_: CropToolbarProtocol?) -> Bool { false }
+    func undoActionName(_: CropToolbarProtocol?) -> String { "undo" }
+    func redoActionName(_: CropToolbarProtocol?) -> String {
+        "redo"
     }
 }
 
@@ -64,16 +64,16 @@ public protocol CropToolbarIconProvider: AnyObject {
 }
 
 public extension CropToolbarIconProvider {
-    func getClockwiseRotationIcon() -> UIImage? { return nil }
-    func getCounterClockwiseRotationIcon() -> UIImage? { return nil }
-    func getResetIcon() -> UIImage? { return nil }
-    func getSetRatioIcon() -> UIImage? { return nil }
-    func getAlterCropper90DegreeIcon() -> UIImage? { return nil }
-    func getCancelIcon() -> UIImage? { return nil }
-    func getCropIcon() -> UIImage? { return nil }
-    func getHorizontallyFlipIcon() -> UIImage? { return nil }
-    func getVerticallyFlipIcon() -> UIImage? { return nil }
-    func getAutoAdjustIcon() -> UIImage? { return nil }
+    func getClockwiseRotationIcon() -> UIImage? { nil }
+    func getCounterClockwiseRotationIcon() -> UIImage? { nil }
+    func getResetIcon() -> UIImage? { nil }
+    func getSetRatioIcon() -> UIImage? { nil }
+    func getAlterCropper90DegreeIcon() -> UIImage? { nil }
+    func getCancelIcon() -> UIImage? { nil }
+    func getCropIcon() -> UIImage? { nil }
+    func getHorizontallyFlipIcon() -> UIImage? { nil }
+    func getVerticallyFlipIcon() -> UIImage? { nil }
+    func getAutoAdjustIcon() -> UIImage? { nil }
 }
 
 public protocol CropToolbarProtocol: UIView {
@@ -88,7 +88,7 @@ public protocol CropToolbarProtocol: UIView {
     // MARK: - The following functions have default implementations
     func getRatioListPresentSourceView() -> UIView?
     func respondToOrientationChange()
-    func adjustLayoutWhenOrientationChange()        
+    func adjustLayoutWhenOrientationChange()
     func handleCropViewDidBecomeResettable()
     func handleCropViewDidBecomeUnResettable()
     func handleImageAutoAdjustable()
@@ -97,7 +97,7 @@ public protocol CropToolbarProtocol: UIView {
 
 public extension CropToolbarProtocol {
     func getRatioListPresentSourceView() -> UIView? {
-        return nil
+        nil
     }
     
     private func adjustIntrinsicContentSize() {
@@ -124,13 +124,13 @@ public extension CropToolbarProtocol {
         adjustLayoutWhenOrientationChange()
     }
     
-    func adjustLayoutWhenOrientationChange() {}
+    func adjustLayoutWhenOrientationChange() { }
     
-    func handleCropViewDidBecomeResettable() {}
+    func handleCropViewDidBecomeResettable() { }
     
-    func handleCropViewDidBecomeUnResettable() {}
+    func handleCropViewDidBecomeUnResettable() { }
     
-    func handleImageAutoAdjustable() {}
+    func handleImageAutoAdjustable() { }
     
-    func handleImageNotAutoAdjustable() {}
+    func handleImageNotAutoAdjustable() { }
 }

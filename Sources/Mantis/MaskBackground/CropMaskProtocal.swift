@@ -1,5 +1,5 @@
 //
-//  CropMaskProtocol.swift
+//  CropMaskProtocal.swift
 //  Mantis
 //
 //  Created by Echo on 10/22/18.
@@ -63,12 +63,11 @@ extension CropMaskProtocol {
     }
     
     func createMaskLayer(opacity: Float, cropRatio: CGFloat = 1.0) -> CAShapeLayer {
-        let coff: CGFloat
-        switch cropShapeType {
+        let coff: CGFloat = switch cropShapeType {
         case .roundedRect:
-            coff = cropRatio
+            cropRatio
         default:
-            coff = 1
+            1
         }
         
         let originX = bounds.midX - minOverLayerUnit * coff / 2
@@ -84,13 +83,17 @@ extension CropMaskProtocol {
             guard points.count >= 3 else {
                 return innerPath
             }
-            let points0 = CGPoint(x: initialRect.width * points[0].x + initialRect.origin.x,
-                                  y: initialRect.height * points[0].y + initialRect.origin.y)
+            let points0 = CGPoint(
+                x: initialRect.width * points[0].x + initialRect.origin.x,
+                y: initialRect.height * points[0].y + initialRect.origin.y
+            )
             innerPath.move(to: points0)
         
-            for index in 1..<points.count {
-                let point = CGPoint(x: initialRect.width * points[index].x + initialRect.origin.x,
-                                    y: initialRect.height * points[index].y + initialRect.origin.y)
+            for index in 1 ..< points.count {
+                let point = CGPoint(
+                    x: initialRect.width * points[index].x + initialRect.origin.x,
+                    y: initialRect.height * points[index].y + initialRect.origin.y
+                )
                 innerPath.addLine(to: point)
             }
             
@@ -137,24 +140,28 @@ extension UIBezierPath {
         // Calculate Radius of Arcs using Pythagoras
         let sideOne = rect.width * 0.4
         let sideTwo = rect.height * 0.3
-        let arcRadius = sqrt(sideOne*sideOne + sideTwo*sideTwo)/2
+        let arcRadius = sqrt(sideOne * sideOne + sideTwo * sideTwo) / 2
 
         // Left Hand Curve
-        self.addArc(withCenter: CGPoint(x: rect.minX + rect.width * 0.3, y: rect.minY + rect.height * 0.35),
-                    radius: arcRadius,
-                    startAngle: 135.degreesToRadians,
-                    endAngle: 315.degreesToRadians,
-                    clockwise: true)
+        self.addArc(
+            withCenter: CGPoint(x: rect.minX + rect.width * 0.3, y: rect.minY + rect.height * 0.35),
+            radius: arcRadius,
+            startAngle: 135.degreesToRadians,
+            endAngle: 315.degreesToRadians,
+            clockwise: true
+        )
 
         // Top Centre Dip
-        self.addLine(to: CGPoint(x: rect.minX + rect.width/2, y: rect.minY + rect.height * 0.2))
+        self.addLine(to: CGPoint(x: rect.minX + rect.width / 2, y: rect.minY + rect.height * 0.2))
 
         // Right Hand Curve
-        self.addArc(withCenter: CGPoint(x: rect.minX + rect.width * 0.7, y: rect.minY + rect.height * 0.35),
-                    radius: arcRadius,
-                    startAngle: 225.degreesToRadians,
-                    endAngle: 45.degreesToRadians,
-                    clockwise: true)
+        self.addArc(
+            withCenter: CGPoint(x: rect.minX + rect.width * 0.7, y: rect.minY + rect.height * 0.35),
+            radius: arcRadius,
+            startAngle: 225.degreesToRadians,
+            endAngle: 45.degreesToRadians,
+            clockwise: true
+        )
 
         // Right Bottom Line
         self.addLine(to: CGPoint(x: rect.minX + rect.width * 0.5, y: rect.minY + rect.height * 0.95))
@@ -166,20 +173,22 @@ extension UIBezierPath {
 
 extension CGFloat {
     func radians() -> CGFloat {
-        return .pi * (self/180)
+        .pi * (self / 180)
     }
 }
 
 extension Int {
-    var degreesToRadians: CGFloat { return CGFloat(self) * .pi / 180 }
+    var degreesToRadians: CGFloat { CGFloat(self) * .pi / 180 }
 }
 
-func polygonPointArray(sides: Int,
-                       originX: CGFloat,
-                       originY: CGFloat,
-                       radius: CGFloat,
-                       offset: CGFloat) -> [CGPoint] {
-    let angle = (360/CGFloat(sides)).radians()
+func polygonPointArray(
+    sides: Int,
+    originX: CGFloat,
+    originY: CGFloat,
+    radius: CGFloat,
+    offset: CGFloat
+) -> [CGPoint] {
+    let angle = (360 / CGFloat(sides)).radians()
     
     var index = 0
     var points = [CGPoint]()

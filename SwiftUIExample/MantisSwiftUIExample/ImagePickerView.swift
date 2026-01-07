@@ -5,8 +5,8 @@
 //  Created by Yingtao Guo on 2/20/23.
 //
 
-import SwiftUI
 import PhotosUI
+import SwiftUI
 
 struct ImagePickerView: UIViewControllerRepresentable {
     @Binding var image: UIImage?
@@ -19,14 +19,17 @@ struct ImagePickerView: UIViewControllerRepresentable {
             self.parent = parent
         }
 
-        func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        func imagePickerController(
+            _: UIImagePickerController,
+            didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]
+        ) {
             if let selectedImage = info[.originalImage] as? UIImage {
                 parent.image = selectedImage
             }
             parent.presentationMode.wrappedValue.dismiss()
         }
 
-        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        func imagePickerControllerDidCancel(_: UIImagePickerController) {
             parent.presentationMode.wrappedValue.dismiss()
         }
     }
@@ -35,12 +38,16 @@ struct ImagePickerView: UIViewControllerRepresentable {
         Coordinator(self)
     }
 
-    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePickerView>) -> UIImagePickerController {
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ImagePickerView>)
+    -> UIImagePickerController {
         let picker = UIImagePickerController()
         picker.sourceType = .photoLibrary
         picker.delegate = context.coordinator
         return picker
     }
 
-    func updateUIViewController(_ uiViewController: UIImagePickerController, context: UIViewControllerRepresentableContext<ImagePickerView>) {}
+    func updateUIViewController(
+        _: UIImagePickerController,
+        context _: UIViewControllerRepresentableContext<ImagePickerView>
+    ) { }
 }

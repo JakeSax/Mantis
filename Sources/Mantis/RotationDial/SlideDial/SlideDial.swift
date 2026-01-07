@@ -12,7 +12,7 @@ final class SlideDial: UIView, RotationControlViewProtocol {
     
     var didUpdateRotationValue: (Angle) -> Void = { _ in }
     
-    var didFinishRotation: () -> Void = {}
+    var didFinishRotation: () -> Void = { }
     
     var indicator: UILabel!
     
@@ -22,10 +22,12 @@ final class SlideDial: UIView, RotationControlViewProtocol {
     
     var config = SlideDialConfig()
     
-    init(frame: CGRect,
-         config: SlideDialConfig,
-         viewModel: SlideDialViewModel,
-         slideRuler: SlideRuler) {
+    init(
+        frame: CGRect,
+        config: SlideDialConfig,
+        viewModel: SlideDialViewModel,
+        slideRuler: SlideRuler
+    ) {
         super.init(frame: frame)
         self.config = config
         self.viewModel = viewModel
@@ -40,7 +42,8 @@ final class SlideDial: UIView, RotationControlViewProtocol {
         setAccessibilities()
     }
     
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -69,7 +72,7 @@ final class SlideDial: UIView, RotationControlViewProtocol {
     func reset() {
         transform = .identity
         viewModel.reset()
-        if let slideRuler = slideRuler {
+        if let slideRuler {
             slideRuler.reset()
         }
     }
@@ -89,7 +92,7 @@ final class SlideDial: UIView, RotationControlViewProtocol {
     }
     
     func handleDeviceRotation() {
-        guard let indicator = indicator else {
+        guard let indicator else {
             return
         }
         
@@ -110,9 +113,12 @@ final class SlideDial: UIView, RotationControlViewProtocol {
     
     func createIndicator() {
         let indicatorSize = config.indicatorSize
-        let indicatorFrame = CGRect(origin: CGPoint(x: (frame.width - indicatorSize.width) / 2, y: 0), size: indicatorSize)
+        let indicatorFrame = CGRect(
+            origin: CGPoint(x: (frame.width - indicatorSize.width) / 2, y: 0),
+            size: indicatorSize
+        )
         
-        if let indicator = indicator {
+        if let indicator {
             indicator.frame = indicatorFrame
         } else {
             indicator = UILabel(frame: indicatorFrame)
@@ -127,16 +133,19 @@ final class SlideDial: UIView, RotationControlViewProtocol {
         }
     }
     
-    @objc func handleIndicatorTapped() {
+    @objc
+    func handleIndicatorTapped() {
         reset()
         didFinishRotation()
     }
     
     func setupSlideRuler() {
-        let sliderFrame = CGRect(x: 0,
-                                 y: frame.height - config.slideRulerHeight,
-                                 width: frame.width,
-                                 height: config.slideRulerHeight)
+        let sliderFrame = CGRect(
+            x: 0,
+            y: frame.height - config.slideRulerHeight,
+            width: frame.width,
+            height: config.slideRulerHeight
+        )
         slideRuler.frame = sliderFrame
         slideRuler.delegate = self
         slideRuler.forceAlignCenterFeedback = true
@@ -163,7 +172,7 @@ extension SlideDial: SlideRulerDelegate {
         didFinishRotation()
     }
     
-    func didGetOffsetRatio(from slideRuler: SlideRuler, offsetRatio: CGFloat) {
+    func didGetOffsetRatio(from _: SlideRuler, offsetRatio: CGFloat) {
         let angle = Angle(degrees: config.limitation * offsetRatio)
         viewModel.rotationAngle = angle
     }

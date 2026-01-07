@@ -5,16 +5,14 @@
 //  Created by Yingtao Guo on 2/2/23.
 //
 
-import UIKit
 @testable import Mantis
+import UIKit
 
 class FakeCropView: UIView, CropViewProtocol {
-    func applyCropState(with cropState: Mantis.CropState) {
-        
-    }
+    func applyCropState(with _: Mantis.CropState) { }
     
     func makeCropState() -> Mantis.CropState {
-        return CropState(
+        CropState(
             rotationType: .none,
             degrees: 0.0,
             aspectRatioLockEnabled: false,
@@ -30,10 +28,9 @@ class FakeCropView: UIView, CropViewProtocol {
     
     var delegate: CropViewDelegate?
     
-    func initialSetup(delegate: CropViewDelegate, presetFixedRatioType: PresetFixedRatioType) {
-    }
+    func initialSetup(delegate _: CropViewDelegate, presetFixedRatioType _: PresetFixedRatioType) { }
     
-    func getRatioType(byImageIsOriginalHorizontal isHorizontal: Bool) -> RatioType {
+    func getRatioType(byImageIsOriginalHorizontal _: Bool) -> RatioType {
         .horizontal
     }
     
@@ -41,136 +38,148 @@ class FakeCropView: UIView, CropViewProtocol {
         0
     }
     
-    func resetComponents() {
-        
-    }
+    func resetComponents() { }
     
-    func prepareForViewWillTransition() {
-        
-    }
+    func prepareForViewWillTransition() { }
     
-    func handleViewWillTransition() {
-        
-    }
+    func handleViewWillTransition() { }
 
-    func setFixedRatio(_ ratio: Double, zoom: Bool, presetFixedRatioType: PresetFixedRatioType) {
-        
+    func setFixedRatio(_: Double, zoom _: Bool, presetFixedRatioType _: PresetFixedRatioType) { }
+    
+    func rotateBy90(withRotateType _: RotateBy90DegreeType, completion _: @escaping () -> Void) { }
+    
+    func handleAlterCropper90Degree() { }
+    
+    func setFreeCrop() { }
+    
+    func handlePresetFixedRatio(_: Double, transformation _: Transformation) { }
+    
+    func transform(byTransformInfo _: Transformation, isUpdateRotationControlView _: Bool) { }
+    
+    func getTransformInfo(byTransformInfo _: Transformation) -> Transformation {
+        Transformation(
+            offset: .zero,
+            rotation: .zero,
+            scale: .zero,
+            isManuallyZoomed: false,
+            initialMaskFrame: .zero,
+            maskFrame: .zero,
+            cropWorkbenchViewBounds: .zero,
+            horizontallyFlipped: false,
+            verticallyFlipped: false
+        )
     }
     
-    func rotateBy90(withRotateType rotateType: RotateBy90DegreeType, completion: @escaping () -> Void) {
-        
+    func getTransformInfo(byNormalizedInfo _: CGRect) -> Transformation {
+        Transformation(
+            offset: .zero,
+            rotation: .zero,
+            scale: .zero,
+            isManuallyZoomed: false,
+            initialMaskFrame: .zero,
+            maskFrame: .zero,
+            cropWorkbenchViewBounds: .zero,
+            horizontallyFlipped: false,
+            verticallyFlipped: false
+        )
     }
     
-    func handleAlterCropper90Degree() {
-        
-    }
+    func processPresetTransformation(completion _: (Transformation) -> Void) { }
     
-    func setFreeCrop() {
-        
-    }
+    func horizontallyFlip() { }
     
-    func handlePresetFixedRatio(_ ratio: Double, transformation: Transformation) {
-        
-    }
+    func verticallyFlip() { }
     
-    func transform(byTransformInfo transformation: Transformation, isUpdateRotationControlView: Bool) {
-        
-    }
-    
-    func getTransformInfo(byTransformInfo transformInfo: Transformation) -> Transformation {
-        Transformation(offset: .zero, 
-                       rotation: .zero,
-                       scale: .zero,
-                       isManuallyZoomed: false,
-                       initialMaskFrame: .zero,
-                       maskFrame: .zero,
-                       cropWorkbenchViewBounds: .zero,
-                       horizontallyFlipped: false,
-                       verticallyFlipped: false)
-    }
-    
-    func getTransformInfo(byNormalizedInfo normalizedInfo: CGRect) -> Transformation {
-        Transformation(offset: .zero, 
-                       rotation: .zero,
-                       scale: .zero,
-                       isManuallyZoomed: false,
-                       initialMaskFrame: .zero,
-                       maskFrame: .zero,
-                       cropWorkbenchViewBounds: .zero,
-                       horizontallyFlipped: false,
-                       verticallyFlipped: false)
-    }
-    
-    func processPresetTransformation(completion: (Transformation) -> Void) {
-        
-    }
-    
-    func horizontallyFlip() {
-        
-    }
-    
-    func verticallyFlip() {
-        
-    }
-    
-    func reset() {
-        
-    }
+    func reset() { }
     
     func makeTransformation() -> Mantis.Transformation {
-        return Transformation(offset: .zero, 
-                              rotation: .zero,
-                              scale: .zero,
-                              isManuallyZoomed: false,
-                              initialMaskFrame: .zero,
-                              maskFrame: .zero,
-                              cropWorkbenchViewBounds: .zero,
-                              horizontallyFlipped: false,
-                              verticallyFlipped: false)
+        Transformation(
+            offset: .zero,
+            rotation: .zero,
+            scale: .zero,
+            isManuallyZoomed: false,
+            initialMaskFrame: .zero,
+            maskFrame: .zero,
+            cropWorkbenchViewBounds: .zero,
+            horizontallyFlipped: false,
+            verticallyFlipped: false
+        )
     }
     
     func crop() -> CropOutput {
-        CropOutput(nil,
-                   Transformation(offset: .zero, 
-                                  rotation: .zero,
-                                  scale: .zero,
-                                  isManuallyZoomed: false,
-                                  initialMaskFrame: .zero,
-                                  maskFrame: .zero,
-                                  cropWorkbenchViewBounds: .zero,
-                                  horizontallyFlipped: false,
-                                  verticallyFlipped: false),
-                   CropInfo(.zero, .zero, .zero, .zero, .zero, .zero,
-                            CropRegion(topLeft: .zero,
-                                       topRight: .zero,
-                                       bottomLeft: .zero,
-                                       bottomRight: .zero)))
+        CropOutput(
+            nil,
+            Transformation(
+                offset: .zero,
+                rotation: .zero,
+                scale: .zero,
+                isManuallyZoomed: false,
+                initialMaskFrame: .zero,
+                maskFrame: .zero,
+                cropWorkbenchViewBounds: .zero,
+                horizontallyFlipped: false,
+                verticallyFlipped: false
+            ),
+            CropInfo(
+                .zero,
+                .zero,
+                .zero,
+                .zero,
+                .zero,
+                .zero,
+                CropRegion(
+                    topLeft: .zero,
+                    topRight: .zero,
+                    bottomLeft: .zero,
+                    bottomRight: .zero
+                )
+            )
+        )
     }
     
-    func crop(_ image: UIImage) -> CropOutput {
-        CropOutput(nil,
-                   Transformation(offset: .zero, 
-                                  rotation: .zero,
-                                  scale: .zero,
-                                  isManuallyZoomed: false,
-                                  initialMaskFrame: .zero,
-                                  maskFrame: .zero,
-                                  cropWorkbenchViewBounds: .zero,
-                                  horizontallyFlipped: false,
-                                  verticallyFlipped: false),
-                   CropInfo(.zero, .zero, .zero, .zero, .zero, .zero,
-                            CropRegion(topLeft: .zero,
-                                       topRight: .zero,
-                                       bottomLeft: .zero,
-                                       bottomRight: .zero)))
+    func crop(_: UIImage) -> CropOutput {
+        CropOutput(
+            nil,
+            Transformation(
+                offset: .zero,
+                rotation: .zero,
+                scale: .zero,
+                isManuallyZoomed: false,
+                initialMaskFrame: .zero,
+                maskFrame: .zero,
+                cropWorkbenchViewBounds: .zero,
+                horizontallyFlipped: false,
+                verticallyFlipped: false
+            ),
+            CropInfo(
+                .zero,
+                .zero,
+                .zero,
+                .zero,
+                .zero,
+                .zero,
+                CropRegion(
+                    topLeft: .zero,
+                    topRight: .zero,
+                    bottomLeft: .zero,
+                    bottomRight: .zero
+                )
+            )
+        )
     }
     
-    func asyncCrop(completion: @escaping (CropOutput) -> Void) {
-        
-    }
+    func asyncCrop(completion _: @escaping (CropOutput) -> Void) { }
     
     func getCropInfo() -> CropInfo {
-        CropInfo(.zero, .zero, .zero, .zero, .zero, .zero, CropRegion(topLeft: .zero, topRight: .zero, bottomLeft: .zero, bottomRight: .zero))
+        CropInfo(
+            .zero,
+            .zero,
+            .zero,
+            .zero,
+            .zero,
+            .zero,
+            CropRegion(topLeft: .zero, topRight: .zero, bottomLeft: .zero, bottomRight: .zero)
+        )
     }
     
     func getExpectedCropImageSize() -> CGSize {

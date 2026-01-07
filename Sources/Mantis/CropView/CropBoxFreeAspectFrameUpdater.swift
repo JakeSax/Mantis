@@ -16,7 +16,12 @@ struct CropBoxFreeAspectFrameUpdater {
     private(set) var cropBoxFrame = CGRect.zero
     private var tappedEdge = CropViewAuxiliaryIndicatorHandleType.none
     
-    init(tappedEdge: CropViewAuxiliaryIndicatorHandleType, contentFrame: CGRect, cropOriginFrame: CGRect, cropBoxFrame: CGRect) {
+    init(
+        tappedEdge: CropViewAuxiliaryIndicatorHandleType,
+        contentFrame: CGRect,
+        cropOriginFrame: CGRect,
+        cropBoxFrame: CGRect
+    ) {
         self.tappedEdge = tappedEdge
         self.contentFrame = contentFrame
         self.cropOriginFrame = cropOriginFrame
@@ -25,7 +30,7 @@ struct CropBoxFreeAspectFrameUpdater {
     
     mutating func updateCropBoxFrame(xDelta: CGFloat, yDelta: CGFloat) {
         func newAspectRatioValid(withNewSize newSize: CGSize) -> Bool {
-            return min(newSize.width, newSize.height) / max(newSize.width, newSize.height) >= minimumAspectRatio
+            min(newSize.width, newSize.height) / max(newSize.width, newSize.height) >= minimumAspectRatio
         }
         
         func handleLeftEdgeFrameUpdate(newSize: CGSize) {
@@ -55,14 +60,16 @@ struct CropBoxFreeAspectFrameUpdater {
         }
         
         func getNewCropFrameSize(byTappedEdge tappedEdge: CropViewAuxiliaryIndicatorHandleType) -> CGSize {
-            let tappedEdgeCropFrameUpdateRule: TappedEdgeCropFrameUpdateRule = [.left: (-xDelta, 0),
-                                                                                .right: (xDelta, 0),
-                                                                                .top: (0, -yDelta),
-                                                                                .bottom: (0, yDelta),
-                                                                                .topLeft: (-xDelta, -yDelta),
-                                                                                .topRight: (xDelta, -yDelta),
-                                                                                .bottomLeft: (-xDelta, yDelta),
-                                                                                .bottomRight: (xDelta, yDelta)]
+            let tappedEdgeCropFrameUpdateRule: TappedEdgeCropFrameUpdateRule = [
+                .left: (-xDelta, 0),
+                .right: (xDelta, 0),
+                .top: (0, -yDelta),
+                .bottom: (0, yDelta),
+                .topLeft: (-xDelta, -yDelta),
+                .topRight: (xDelta, -yDelta),
+                .bottomLeft: (-xDelta, yDelta),
+                .bottomRight: (xDelta, yDelta)
+            ]
             
             guard let delta = tappedEdgeCropFrameUpdateRule[tappedEdge] else {
                 return cropOriginFrame.size

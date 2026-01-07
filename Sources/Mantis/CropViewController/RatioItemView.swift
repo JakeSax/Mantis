@@ -49,7 +49,8 @@ final class RatioItemView: UIView {
         super.init(frame: frame)
     }
     
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -66,10 +67,10 @@ final class RatioItemView: UIView {
         
         layer.cornerRadius = 10
         clipsToBounds = true
-        
-    }
+     }
     
-    @objc private func tap() {
+    @objc
+    private func tap() {
         selected = !selected
         self.didGetRatio(ratio)
     }
@@ -88,8 +89,10 @@ private class PaddingLabel: UILabel {
     
     override var intrinsicContentSize: CGSize {
         let size = super.intrinsicContentSize
-        return CGSize(width: size.width + leftInset + rightInset,
-                      height: size.height + topInset + bottomInset)
+        return CGSize(
+            width: size.width + leftInset + rightInset,
+            height: size.height + topInset + bottomInset
+        )
     }
     
     override var bounds: CGRect {

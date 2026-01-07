@@ -28,7 +28,7 @@
 
 import UIKit
 
-struct ToolBarButtonImageBuilder {
+enum ToolBarButtonImageBuilder {
     static func rotateCCWImage() -> UIImage? {
         if #available(macCatalyst 13.1, iOS 13.0, *) {
             return UIImage(systemName: "rotate.left")
@@ -88,13 +88,21 @@ struct ToolBarButtonImageBuilder {
     static func verticallyFlipImage() -> UIImage? {
         if #available(macCatalyst 13.1, iOS 13.0, *) {
             guard let horizontallyFlippedImage = horizontallyFlipImage(),
-                  let cgImage = horizontallyFlippedImage.cgImage else {
+                  let cgImage = horizontallyFlippedImage.cgImage
+            else {
                 return nil
             }
             
-            let rotatedImage = UIImage(cgImage: cgImage, scale: horizontallyFlippedImage.scale, orientation: .leftMirrored)
+            let rotatedImage = UIImage(
+                cgImage: cgImage,
+                scale: horizontallyFlippedImage.scale,
+                orientation: .leftMirrored
+            )
             
-            let newSize = CGSize(width: horizontallyFlippedImage.size.height, height: horizontallyFlippedImage.size.width)
+            let newSize = CGSize(
+                width: horizontallyFlippedImage.size.height,
+                height: horizontallyFlippedImage.size.width
+            )
             UIGraphicsBeginImageContextWithOptions(newSize, false, horizontallyFlippedImage.scale)
             rotatedImage.draw(in: CGRect(origin: .zero, size: newSize))
             

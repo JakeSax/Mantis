@@ -1,5 +1,5 @@
 //
-//  ImageStatus.swift
+//  CropViewModel.swift
 //  Mantis
 //
 //  Created by Echo on 10/26/18.
@@ -36,7 +36,7 @@ enum ImageRotationType: CGFloat {
     }
     
     var isRotatedByMultiple180: Bool {
-        return self == .none || self == .counterclockwise180
+        self == .none || self == .counterclockwise180
     }
 }
 
@@ -66,6 +66,7 @@ final class CropViewModel: CropViewModelProtocol {
             }
         }
     }
+
     var cropBoxOriginFrame = CGRect.zero
     var panOriginPoint = CGPoint.zero
     var tappedEdge = CropViewAuxiliaryIndicatorHandleType.none
@@ -77,7 +78,7 @@ final class CropViewModel: CropViewModelProtocol {
     }
     
     var rotationType: ImageRotationType = .none
-    var fixedImageRatio: CGFloat = -1    
+    var fixedImageRatio: CGFloat = -1
     var cropLeftTopOnImage = CGPoint.zero
     var cropRightBottomOnImage = CGPoint(x: 1, y: 1)
     
@@ -96,7 +97,7 @@ final class CropViewModel: CropViewModelProtocol {
         
         if forceFixedRatio == false {
             fixedImageRatio = -1
-        }        
+        }
         
         cropLeftTopOnImage = .zero
         cropRightBottomOnImage = CGPoint(x: 1, y: 1)
@@ -113,19 +114,19 @@ final class CropViewModel: CropViewModelProtocol {
     }
         
     func getTotalRadians() -> CGFloat {
-        return getTotalRadians(by: radians)
+        getTotalRadians(by: radians)
     }
     
     func getRatioType(byImageIsOriginalHorizontal isHorizontal: Bool) -> RatioType {
         if isUpOrUpsideDown() {
-            return isHorizontal ? .horizontal : .vertical
+            isHorizontal ? .horizontal : .vertical
         } else {
-            return isHorizontal ? .vertical : .horizontal
+            isHorizontal ? .vertical : .horizontal
         }
     }
     
     func isUpOrUpsideDown() -> Bool {
-        return rotationType == .none || rotationType == .counterclockwise180
+        rotationType == .none || rotationType == .counterclockwise180
     }
 
     func prepareForCrop(byTouchPoint point: CGPoint) {
@@ -147,12 +148,14 @@ final class CropViewModel: CropViewModelProtocol {
     }
     
     func needCrop() -> Bool {
-        return !cropBoxOriginFrame.equalTo(cropBoxFrame)
+        !cropBoxOriginFrame.equalTo(cropBoxFrame)
     }
         
-    func getNewCropBoxFrame(withTouchPoint touchPoint: CGPoint,
-                            andContentFrame contentFrame: CGRect,
-                            aspectRatioLockEnabled: Bool) -> CGRect {
+    func getNewCropBoxFrame(
+        withTouchPoint touchPoint: CGPoint,
+        andContentFrame contentFrame: CGRect,
+        aspectRatioLockEnabled: Bool
+    ) -> CGRect {
         var touchPoint = touchPoint
         touchPoint.x = max(contentFrame.origin.x - cropViewPadding, touchPoint.x)
         touchPoint.y = max(contentFrame.origin.y - cropViewPadding, touchPoint.y)
@@ -163,17 +166,21 @@ final class CropViewModel: CropViewModelProtocol {
         
         let newCropBoxFrame: CGRect
         if aspectRatioLockEnabled {
-            var cropBoxLockedAspectFrameUpdater = CropBoxLockedAspectFrameUpdater(tappedEdge: tappedEdge,
-                                                                                  contentFrame: contentFrame,
-                                                                                  cropOriginFrame: cropBoxOriginFrame,
-                                                                                  cropBoxFrame: cropBoxFrame)
+            var cropBoxLockedAspectFrameUpdater = CropBoxLockedAspectFrameUpdater(
+                tappedEdge: tappedEdge,
+                contentFrame: contentFrame,
+                cropOriginFrame: cropBoxOriginFrame,
+                cropBoxFrame: cropBoxFrame
+            )
             cropBoxLockedAspectFrameUpdater.updateCropBoxFrame(xDelta: xDelta, yDelta: yDelta)
             newCropBoxFrame = cropBoxLockedAspectFrameUpdater.cropBoxFrame
         } else {
-            var cropBoxFreeAspectFrameUpdater = CropBoxFreeAspectFrameUpdater(tappedEdge: tappedEdge,
-                                                                              contentFrame: contentFrame,
-                                                                              cropOriginFrame: cropBoxOriginFrame,
-                                                                              cropBoxFrame: cropBoxFrame)
+            var cropBoxFreeAspectFrameUpdater = CropBoxFreeAspectFrameUpdater(
+                tappedEdge: tappedEdge,
+                contentFrame: contentFrame,
+                cropOriginFrame: cropBoxOriginFrame,
+                cropBoxFrame: cropBoxFrame
+            )
             cropBoxFreeAspectFrameUpdater.updateCropBoxFrame(xDelta: xDelta, yDelta: yDelta)
             newCropBoxFrame = cropBoxFreeAspectFrameUpdater.cropBoxFrame
         }
@@ -209,7 +216,7 @@ extension CropViewModel {
     }
     
     private func getTotalRadians(by radians: CGFloat) -> CGFloat {
-        return radians + rotationType.rawValue * CGFloat.pi / 180
+        radians + rotationType.rawValue * CGFloat.pi / 180
     }
     
     private func cropEdge(forPoint point: CGPoint) -> CropViewAuxiliaryIndicatorHandleType {

@@ -6,8 +6,8 @@
 //  Copyright © 2025 Echo. All rights reserved.
 //
 
-import UIKit
 import Mantis
+import UIKit
 
 class DemoViewController: UIViewController {
     var image = UIImage(named: "sunflower.jpg")
@@ -17,7 +17,7 @@ class DemoViewController: UIViewController {
     
     private func createConfigWithPresetTransformation() -> Config {
         var config = Mantis.Config()
-        if let transformation = transformation {
+        if let transformation {
             config.cropViewConfig.presetTransformationType = .presetInfo(info: transformation)
         }
         return config
@@ -86,7 +86,7 @@ class DemoViewController: UIViewController {
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        .lightContent
     }
     
     // MARK: - Setup Methods
@@ -130,12 +130,14 @@ class DemoViewController: UIViewController {
     }
     
     // MARK: - Action Methods
-    @objc private func selectFromAlbumAction() {
+    @objc
+    private func selectFromAlbumAction() {
         imagePicker.present(from: view)
     }
     
-    @objc private func normalAction() {
-        guard let image = image else {
+    @objc
+    private func normalAction() {
+        guard let image else {
             return
         }
         var config = createConfigWithPresetTransformation()
@@ -143,14 +145,22 @@ class DemoViewController: UIViewController {
         
         let indicatorFrame = CGRect(origin: .zero, size: config.cropViewConfig.cropActivityIndicatorSize)
         config.cropViewConfig.cropActivityIndicator = CustomWaitingIndicator(frame: indicatorFrame)
-        config.cropToolbarConfig.toolbarButtonOptions = [.clockwiseRotate, .reset, .ratio, .autoAdjust, .horizontallyFlip]
+        config.cropToolbarConfig.toolbarButtonOptions = [
+            .clockwiseRotate,
+            .reset,
+            .ratio,
+            .autoAdjust,
+            .horizontallyFlip
+        ]
         
-        if let transformation = transformation {
+        if let transformation {
             config.cropViewConfig.presetTransformationType = .presetInfo(info: transformation)
         }
         
-        let cropViewController = Mantis.cropViewController(image: image,
-                                                           config: config)
+        let cropViewController = Mantis.cropViewController(
+            image: image,
+            config: config
+        )
         cropViewController.delegate = self
         
         let navigationController = UINavigationController(rootViewController: cropViewController)
@@ -158,16 +168,19 @@ class DemoViewController: UIViewController {
         present(navigationController, animated: true)
     }
     
-    @objc private func embeddedAction() {
-        guard let image = image else {
+    @objc
+    private func embeddedAction() {
+        guard let image else {
             return
         }
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         
-        if let navController = storyboard.instantiateViewController(withIdentifier: "EmbeddedCropViewControllerNav") as? UINavigationController,
-           let embeddedCropViewController = navController.viewControllers.first as? EmbeddedCropViewController {
-            
+        if let navController = storyboard
+            .instantiateViewController(withIdentifier: "EmbeddedCropViewControllerNav") as? UINavigationController,
+            let embeddedCropViewController = navController.viewControllers
+                .first as? EmbeddedCropViewController
+        {
             embeddedCropViewController.image = image
             embeddedCropViewController.didGetCroppedImage = { [weak self] image in
                 self?.croppedImageView.image = image
@@ -178,45 +191,66 @@ class DemoViewController: UIViewController {
         }
     }
     
-    @objc private func transformationAction() {
-        guard let image = image else {
+    @objc
+    private func transformationAction() {
+        guard let image else {
             return
         }
         
         var config = Mantis.Config()
         
-        let transform = Transformation(offset: CGPoint(x: 169, y: 152),
-                                       rotation: -0.46043267846107483,
-                                       scale: 2.129973210831677,
-                                       isManuallyZoomed: true,
-                                       initialMaskFrame: CGRect(x: 14.0, y: 33, width: 402, height: 603),
-                                       maskFrame: CGRect(x: 67.90047201716507, y: 14.0, width: 294.19905596566986, height: 641.0),
-                                       cropWorkbenchViewBounds: CGRect(x: 169,
-                                                                       y: 152,
-                                                                       width: 548.380489739444,
-                                                                       height: 704.9696330065433),
-                                       horizontallyFlipped: true,
-                                       verticallyFlipped: false)
+        let transform = Transformation(
+            offset: CGPoint(x: 169, y: 152),
+            rotation: -0.46043267846107483,
+            scale: 2.129973210831677,
+            isManuallyZoomed: true,
+            initialMaskFrame: CGRect(x: 14.0, y: 33, width: 402, height: 603),
+            maskFrame: CGRect(
+                x: 67.90047201716507,
+                y: 14.0,
+                width: 294.19905596566986,
+                height: 641.0
+            ),
+            cropWorkbenchViewBounds: CGRect(
+                x: 169,
+                y: 152,
+                width: 548.380489739444,
+                height: 704.9696330065433
+            ),
+            horizontallyFlipped: true,
+            verticallyFlipped: false
+        )
         
-        config.cropToolbarConfig.toolbarButtonOptions = [.clockwiseRotate, .reset, .ratio, .autoAdjust, .horizontallyFlip]
+        config.cropToolbarConfig.toolbarButtonOptions = [
+            .clockwiseRotate,
+            .reset,
+            .ratio,
+            .autoAdjust,
+            .horizontallyFlip
+        ]
         config.cropViewConfig.presetTransformationType = .presetInfo(info: transform)
         config.cropViewConfig.builtInRotationControlViewType = .slideDial()
         
-        let cropViewController = Mantis.cropViewController(image: image,
-                                                           config: config)
+        let cropViewController = Mantis.cropViewController(
+            image: image,
+            config: config
+        )
         cropViewController.modalPresentationStyle = .fullScreen
         cropViewController.delegate = self
         present(cropViewController, animated: true)
     }
     
-    @objc private func headlessCropDemoAction() {
-        guard let image = image else {
+    @objc
+    private func headlessCropDemoAction() {
+        guard let image else {
             return
         }
         
         let config = Mantis.Config()
-        cropViewController = Mantis.cropViewController(image: image,
-                                                           config: config)
+        cropViewController = Mantis.cropViewController(
+            image: image,
+            config: config
+        )
         cropViewController?.delegate = self
         
         let savedCropInfo: CropInfo = (
@@ -237,8 +271,9 @@ class DemoViewController: UIViewController {
         cropViewController?.crop(by: savedCropInfo)
     }
     
-    @objc private func alwaysUseOnePresetRatioAction() {
-        guard let image = image else {
+    @objc
+    private func alwaysUseOnePresetRatioAction() {
+        guard let image else {
             return
         }
         
@@ -250,8 +285,9 @@ class DemoViewController: UIViewController {
         present(cropViewController, animated: true)
     }
     
-    @objc private func customViewControllerAction() {
-        guard let image = image else {
+    @objc
+    private func customViewControllerAction() {
+        guard let image else {
             return
         }
         
@@ -266,8 +302,9 @@ class DemoViewController: UIViewController {
         present(navigationController, animated: true)
     }
     
-    @objc private func customToolbarListAction() {
-        guard let image = image else {
+    @objc
+    private func customToolbarListAction() {
+        guard let image else {
             return
         }
         var config = Mantis.Config()
@@ -277,16 +314,19 @@ class DemoViewController: UIViewController {
         
         let cropToolbar = CustomizedCropToolbar(frame: .zero)
         
-        let cropViewController = Mantis.cropViewController(image: image,
-                                                           config: config,
-                                                           cropToolbar: cropToolbar)
+        let cropViewController = Mantis.cropViewController(
+            image: image,
+            config: config,
+            cropToolbar: cropToolbar
+        )
         cropViewController.modalPresentationStyle = .fullScreen
         cropViewController.delegate = self
         present(cropViewController, animated: true)
     }
     
-    @objc private func customToolbarButtonsAction() {
-        guard let image = image else {
+    @objc
+    private func customToolbarButtonsAction() {
+        guard let image else {
             return
         }
         var config = Mantis.Config()
@@ -296,40 +336,53 @@ class DemoViewController: UIViewController {
         
         let cropToolbar = CustomizedCropToolbarWithoutList(frame: .zero)
         
-        let cropViewController = Mantis.cropViewController(image: image,
-                                                           config: config,
-                                                           cropToolbar: cropToolbar)
+        let cropViewController = Mantis.cropViewController(
+            image: image,
+            config: config,
+            cropToolbar: cropToolbar
+        )
         cropViewController.modalPresentationStyle = .fullScreen
         cropViewController.delegate = self
         present(cropViewController, animated: true)
     }
     
-    @objc private func clockwiseRotationAction() {
-        guard let image = image else {
+    @objc
+    private func clockwiseRotationAction() {
+        guard let image else {
             return
         }
         
         var config = Mantis.Config()
-        config.cropToolbarConfig.toolbarButtonOptions = [.clockwiseRotate, .reset, .ratio, .horizontallyFlip, .verticallyFlip]
+        config.cropToolbarConfig.toolbarButtonOptions = [
+            .clockwiseRotate,
+            .reset,
+            .ratio,
+            .horizontallyFlip,
+            .verticallyFlip
+        ]
         config.cropToolbarConfig.backgroundColor = .white
         config.cropToolbarConfig.foregroundColor = .gray
         config.cropToolbarConfig.ratioCandidatesShowType = .alwaysShowRatioList
         config.presetFixedRatioType = .alwaysUsingOnePresetFixedRatio(ratio: 2.0 / 1.0)
         config.cropViewConfig.builtInRotationControlViewType = .slideDial()
         
-        let cropViewController = Mantis.cropViewController(image: image,
-                                                           config: config)
+        let cropViewController = Mantis.cropViewController(
+            image: image,
+            config: config
+        )
         cropViewController.modalPresentationStyle = .fullScreen
         cropViewController.delegate = self
         present(cropViewController, animated: true)
     }
     
-    @objc private func cropShapesAction() {
+    @objc
+    private func cropShapesAction() {
         showCropShapeList()
     }
     
-    @objc private func hideRotationDialAction() {
-        guard let image = image else {
+    @objc
+    private func hideRotationDialAction() {
+        guard let image else {
             return
         }
         
@@ -350,23 +403,28 @@ class DemoViewController: UIViewController {
         present(navigationController, animated: true)
     }
     
-    @objc private func darkBackgroundAction() {
+    @objc
+    private func darkBackgroundAction() {
         presentWith(backgroundEffect: .dark)
     }
     
-    @objc private func lightBackgroundAction() {
+    @objc
+    private func lightBackgroundAction() {
         presentWith(backgroundEffect: .light)
     }
     
-    @objc private func colorBackgroundAction() {
-        guard let image = image else {
+    @objc
+    private func colorBackgroundAction() {
+        guard let image else {
             return
         }
         
         var config = Mantis.Config()
         config.cropViewConfig.backgroundColor = .yellow
-        let cropViewController = Mantis.cropViewController(image: image,
-                                                           config: config)
+        let cropViewController = Mantis.cropViewController(
+            image: image,
+            config: config
+        )
         cropViewController.modalPresentationStyle = .fullScreen
         cropViewController.delegate = self
         present(cropViewController, animated: true)
@@ -386,25 +444,27 @@ class DemoViewController: UIViewController {
         (.roundedRect(radiusToShortSide: 0.1), "Rounded rectangle"),
         (.diamond(), "Diamond"),
         (.heart(), "Heart"),
-        (.path(points: [CGPoint(x: 0.5, y: 0),
-                        CGPoint(x: 0.6, y: 0.3),
-                        CGPoint(x: 1, y: 0.5),
-                        CGPoint(x: 0.6, y: 0.8),
-                        CGPoint(x: 0.5, y: 1),
-                        CGPoint(x: 0.5, y: 0.7),
-                        CGPoint(x: 0, y: 0.5)]), "Arbitrary path")
+        (.path(points: [
+            CGPoint(x: 0.5, y: 0),
+            CGPoint(x: 0.6, y: 0.3),
+            CGPoint(x: 1, y: 0.5),
+            CGPoint(x: 0.6, y: 0.8),
+            CGPoint(x: 0.5, y: 1),
+            CGPoint(x: 0.5, y: 0.7),
+            CGPoint(x: 0, y: 0.5)
+        ]), "Arbitrary path")
     ]
     
     private func showCropShapeList() {
-        guard let image = image else {
+        guard let image else {
             return
         }
         
         let actionSheet = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
         
         for item in cropShapeList {
-            let action = UIAlertAction(title: item.title, style: .default) {[weak self] _ in
-                guard let self = self else {return}
+            let action = UIAlertAction(title: item.title, style: .default) { [weak self] _ in
+                guard let self else { return }
                 var config = Mantis.Config()
                 config.cropViewConfig.cropShapeType = item.type
                 config.cropViewConfig.cropBorderWidth = 40
@@ -432,14 +492,16 @@ class DemoViewController: UIViewController {
     }
     
     private func presentWith(backgroundEffect effect: CropMaskVisualEffectType) {
-        guard let image = image else {
+        guard let image else {
             return
         }
         
         var config = Mantis.Config()
         config.cropViewConfig.cropMaskVisualEffectType = effect
-        let cropViewController = Mantis.cropViewController(image: image,
-                                                           config: config)
+        let cropViewController = Mantis.cropViewController(
+            image: image,
+            config: config
+        )
         cropViewController.modalPresentationStyle = .fullScreen
         cropViewController.delegate = self
         present(cropViewController, animated: true)
@@ -447,29 +509,29 @@ class DemoViewController: UIViewController {
     
     private func getActionForIndex(_ index: Int) -> Selector? {
         switch index {
-        case 0: return #selector(normalAction)
-        case 1: return #selector(embeddedAction)
-        case 2: return #selector(transformationAction)
-        case 3: return #selector(headlessCropDemoAction)
-        case 4: return #selector(alwaysUseOnePresetRatioAction)
-        case 5: return #selector(customViewControllerAction)
-        case 6: return #selector(customToolbarListAction)
-        case 7: return #selector(customToolbarButtonsAction)
-        case 8: return #selector(clockwiseRotationAction)
-        case 9: return #selector(cropShapesAction)
-        case 10: return #selector(hideRotationDialAction)
-        case 11: return #selector(darkBackgroundAction)
-        case 12: return #selector(lightBackgroundAction)
-        case 13: return #selector(colorBackgroundAction)
-        default: return nil
+        case 0: #selector(normalAction)
+        case 1: #selector(embeddedAction)
+        case 2: #selector(transformationAction)
+        case 3: #selector(headlessCropDemoAction)
+        case 4: #selector(alwaysUseOnePresetRatioAction)
+        case 5: #selector(customViewControllerAction)
+        case 6: #selector(customToolbarListAction)
+        case 7: #selector(customToolbarButtonsAction)
+        case 8: #selector(clockwiseRotationAction)
+        case 9: #selector(cropShapesAction)
+        case 10: #selector(hideRotationDialAction)
+        case 11: #selector(darkBackgroundAction)
+        case 12: #selector(lightBackgroundAction)
+        case 13: #selector(colorBackgroundAction)
+        default: nil
         }
     }
 }
 
 // MARK: - UITableViewDataSource
 extension DemoViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return menuItems.count
+    func tableView(_: UITableView, numberOfRowsInSection _: Int) -> Int {
+        menuItems.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -494,7 +556,7 @@ extension DemoViewController: UITableViewDelegate {
         impactFeedback.impactOccurred()
     }
     
-    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+    func tableView(_: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         cell.alpha = 0
         UIView.animate(withDuration: 0.3, delay: 0.05 * Double(indexPath.row), options: .curveEaseInOut) {
             cell.alpha = 1
@@ -503,10 +565,12 @@ extension DemoViewController: UITableViewDelegate {
 }
 
 extension DemoViewController: CropViewControllerDelegate {
-    func cropViewControllerDidCrop(_ cropViewController: CropViewController,
-                                   cropped: UIImage,
-                                   transformation: Transformation,
-                                   cropInfo: CropInfo) {
+    func cropViewControllerDidCrop(
+        _: CropViewController,
+        cropped: UIImage,
+        transformation: Transformation,
+        cropInfo: CropInfo
+    ) {
         print("transformation is \(transformation)")
         print("cropInfo is \(cropInfo)")
         croppedImageView.image = cropped
@@ -514,11 +578,11 @@ extension DemoViewController: CropViewControllerDelegate {
         dismiss(animated: true)
     }
     
-    func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage) {
+    func cropViewControllerDidCancel(_: CropViewController, original _: UIImage) {
         dismiss(animated: true)
     }
     
-    func cropViewController(_ cropViewController: CropViewController, didBecomeResettable resettable: Bool) {
+    func cropViewController(_: CropViewController, didBecomeResettable resettable: Bool) {
         print("Is resettable: \(resettable)")
     }
 }
@@ -526,7 +590,7 @@ extension DemoViewController: CropViewControllerDelegate {
 // MARK: - ImagePickerDelegate
 extension DemoViewController: ImagePickerDelegate {
     func didSelect(image: UIImage?) {
-        guard let image = image else { return }
+        guard let image else { return }
         self.image = image
         croppedImageView.image = image
     }

@@ -1,5 +1,5 @@
 //
-//  CropWorkbenchViewProtocol.swift
+//  CropScrollViewProtocol.swift
 //  Mantis
 //
 //  Created by yingtguo on 12/15/22.
@@ -31,6 +31,6 @@ extension CropWorkbenchViewProtocol {
         transform = transform.scaledBy(x: xScale, y: yScale)
     }
     
-    func zoomIn(by zoomScaleFactor: CGFloat) {}
-    func zoomOut(by zoomScaleFactor: CGFloat) {}
+    func zoomIn(by _: CGFloat) { }
+    func zoomOut(by _: CGFloat) { }
 }

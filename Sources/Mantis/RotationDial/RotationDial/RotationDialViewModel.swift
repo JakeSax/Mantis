@@ -13,9 +13,10 @@ final class RotationDialViewModel: RotationDialViewModelProtocol {
     
     var touchPoint: CGPoint? {
         didSet {
-            guard let oldValue = oldValue,
-                let newValue = self.touchPoint,
-                let rotationCal = rotationCalculator else {
+            guard let oldValue,
+                  let newValue = self.touchPoint,
+                  let rotationCal = rotationCalculator
+            else {
                 return
             }
             

@@ -23,13 +23,15 @@ struct CropShapeListView: View {
         (.roundedRect(radiusToShortSide: 0.1), "Rounded rectangle"),
         (.diamond(), "Diamond"),
         (.heart(), "Heart"),
-        (.path(points: [CGPoint(x: 0.5, y: 0),
-                        CGPoint(x: 0.6, y: 0.3),
-                        CGPoint(x: 1, y: 0.5),
-                        CGPoint(x: 0.6, y: 0.8),
-                        CGPoint(x: 0.5, y: 1),
-                        CGPoint(x: 0.5, y: 0.7),
-                        CGPoint(x: 0, y: 0.5)]), "Arbitrary path")
+        (.path(points: [
+            CGPoint(x: 0.5, y: 0),
+            CGPoint(x: 0.6, y: 0.3),
+            CGPoint(x: 1, y: 0.5),
+            CGPoint(x: 0.6, y: 0.8),
+            CGPoint(x: 0.5, y: 1),
+            CGPoint(x: 0.5, y: 0.7),
+            CGPoint(x: 0, y: 0.5)
+        ]), "Arbitrary path")
     ]
     
     @Binding var cropShapeType: Mantis.CropShapeType

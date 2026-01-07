@@ -14,14 +14,14 @@ class CustomViewController: Mantis.CropViewController {
         title = "Custom View Controller"
 
         let rotate = UIBarButtonItem(
-            image: UIImage.init(systemName: "crop.rotate"),
+            image: UIImage(systemName: "crop.rotate"),
             style: .plain,
             target: self,
             action: #selector(onRotateClicked)
         )
 
         let done = UIBarButtonItem(
-            image: UIImage.init(systemName: "checkmark"),
+            image: UIImage(systemName: "checkmark"),
             style: .plain,
             target: self,
             action: #selector(onDoneClicked)
@@ -33,11 +33,13 @@ class CustomViewController: Mantis.CropViewController {
         ]
     }
 
-    @objc private func onRotateClicked() {
+    @objc
+    private func onRotateClicked() {
         didSelectClockwiseRotate()
     }
 
-    @objc private func onDoneClicked() {
+    @objc
+    private func onDoneClicked() {
         crop()
     }
 }

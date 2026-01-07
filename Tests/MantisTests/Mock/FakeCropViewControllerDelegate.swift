@@ -5,8 +5,8 @@
 //  Created by Yingtao Guo on 2/2/23.
 //
 
-import UIKit
 @testable import Mantis
+import UIKit
 
 class FakeCropViewControllerDelegate: CropViewControllerDelegate {
     var didCrop = false
@@ -16,27 +16,32 @@ class FakeCropViewControllerDelegate: CropViewControllerDelegate {
     var didEndResize = false
     var didImageTransformed = false
     
-    func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage, transformation: Transformation, cropInfo: CropInfo) {
+    func cropViewControllerDidCrop(
+        _: CropViewController,
+        cropped _: UIImage,
+        transformation _: Transformation,
+        cropInfo _: CropInfo
+    ) {
         didCrop = true
     }
     
-    func cropViewControllerDidFailToCrop(_ cropViewController: CropViewController, original: UIImage) {
+    func cropViewControllerDidFailToCrop(_: CropViewController, original _: UIImage) {
         didFailedToCrop = true
     }
     
-    func cropViewControllerDidCancel(_ cropViewController: CropViewController, original: UIImage) {
+    func cropViewControllerDidCancel(_: CropViewController, original _: UIImage) {
         didCancel = true
     }
     
-    func cropViewControllerDidBeginResize(_ cropViewController: CropViewController) {
+    func cropViewControllerDidBeginResize(_: CropViewController) {
         didBeginResize = true
     }
     
-    func cropViewControllerDidEndResize(_ cropViewController: CropViewController, original: UIImage, cropInfo: CropInfo) {
+    func cropViewControllerDidEndResize(_: CropViewController, original _: UIImage, cropInfo _: CropInfo) {
         didEndResize = true
     }
     
-    func cropViewControllerDidImageTransformed(_ cropViewController: CropViewController, transformation: Transformation) {
+    func cropViewControllerDidImageTransformed(_: CropViewController, transformation _: Transformation) {
         didImageTransformed = true
     }
 }

@@ -5,8 +5,8 @@
 //  Created by Yingtao Guo on 2/3/23.
 //
 
-import UIKit
 @testable import Mantis
+import UIKit
 
 class FakeCropAuxiliaryIndicatorView: UIView, CropAuxiliaryIndicatorViewProtocol {
     var cropBoxHotAreaUnit: CGFloat = 42
@@ -15,19 +15,11 @@ class FakeCropAuxiliaryIndicatorView: UIView, CropAuxiliaryIndicatorViewProtocol
     
     var gridHidden = false
     
-    func setGrid(hidden: Bool, animated: Bool) {
-        
-    }
+    func setGrid(hidden _: Bool, animated _: Bool) { }
     
-    func hideGrid() {
-        
-    }
+    func hideGrid() { }
     
-    func handleIndicatorHandleTouched(with tappedEdge: CropViewAuxiliaryIndicatorHandleType) {
-        
-    }
+    func handleIndicatorHandleTouched(with _: CropViewAuxiliaryIndicatorHandleType) { }
     
-    func handleEdgeUntouched() {
-        
-    }
+    func handleEdgeUntouched() { }
 }

@@ -20,7 +20,12 @@ final class RatioPresenter {
     private var ratios: [RatioItemType]
     private var fixRatiosShowType: FixedRatiosShowType = .adaptive
 
-    init(type: RatioType, originalRatioH: Double, ratios: [RatioItemType] = [], fixRatiosShowType: FixedRatiosShowType = .adaptive) {
+    init(
+        type: RatioType,
+        originalRatioH: Double,
+        ratios: [RatioItemType] = [],
+        fixRatiosShowType: FixedRatiosShowType = .adaptive
+    ) {
         self.type = type
         self.originalRatioH = originalRatioH
         self.ratios = ratios
@@ -30,22 +35,22 @@ final class RatioPresenter {
     private func getItemTitle(by ratio: RatioItemType) -> String {
         switch fixRatiosShowType {
         case .adaptive:
-            return (type == .horizontal) ? ratio.nameH : ratio.nameV
+            (type == .horizontal) ? ratio.nameH : ratio.nameV
         case .horizontal:
-            return ratio.nameH
+            ratio.nameH
         case .vertical:
-            return ratio.nameV
+            ratio.nameV
         }
     }
 
     private func getItemValue(by ratio: RatioItemType) -> Double {
         switch fixRatiosShowType {
         case .adaptive:
-            return (type == .horizontal) ? ratio.ratioH : ratio.ratioV
+            (type == .horizontal) ? ratio.ratioH : ratio.ratioV
         case .horizontal:
-            return ratio.ratioH
+            ratio.ratioH
         case .vertical:
-            return ratio.ratioV
+            ratio.ratioV
         }
     }
 
@@ -55,8 +60,8 @@ final class RatioPresenter {
         for ratio in ratios {
             let title = getItemTitle(by: ratio)
 
-            let action = UIAlertAction(title: title, style: .default) {[weak self] _ in
-                guard let self = self else { return }
+            let action = UIAlertAction(title: title, style: .default) { [weak self] _ in
+                guard let self else { return }
                 let ratioValue = self.getItemValue(by: ratio)
                 self.didGetRatio(ratioValue)
             }

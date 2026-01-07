@@ -105,5 +105,5 @@ public struct CropViewConfig {
     
     public var keyboardZoomScaleFactor: CGFloat = 1.1
     
-    public init() {}
+    public init() { }
 }

@@ -6,7 +6,6 @@ enum TransformType {
 }
 
 class TransformRecord: NSObject {
-    
     private let transformType: TransformType
     
     private let actionName: String
@@ -16,8 +15,12 @@ class TransformRecord: NSObject {
     
     private var useCurrent: Bool = true
     
-    init(transformType: TransformType, actionName: String, previousValues: [String: CropState], currentValues: [String: CropState]) {
-        
+    init(
+        transformType: TransformType,
+        actionName: String,
+        previousValues: [String: CropState],
+        currentValues: [String: CropState]
+    ) {
         self.transformType = transformType
         self.actionName = actionName
         self.previousValues = previousValues
@@ -26,7 +29,8 @@ class TransformRecord: NSObject {
         super.init()
     }
     
-    required init?(coder: NSCoder) {
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
@@ -34,8 +38,9 @@ class TransformRecord: NSObject {
         guard let transformDelegate = TransformStack.shared.transformDelegate else { return }
 
         guard let cropState = self.useCurrent ?
-                self.currentValues[.kCurrentTransformState]
-                : self.previousValues[.kCurrentTransformState] else {
+            self.currentValues[.kCurrentTransformState]
+            : self.previousValues[.kCurrentTransformState]
+        else {
             return
         }
         
@@ -43,8 +48,8 @@ class TransformRecord: NSObject {
     }
     
     // Add/Redo
-    @objc func addAdjustmentToStack(_ applyTransform: NSNumber? = nil) {
-        
+    @objc
+    func addAdjustmentToStack(_ applyTransform: NSNumber? = nil) {
         guard let transformDelegate = TransformStack.shared.transformDelegate else { return }
         
         self.useCurrent = true
@@ -56,7 +61,11 @@ class TransformRecord: NSObject {
         TransformStack.shared.pushTransformRecord(self)
         
         // register the undo event
-        transformDelegate.getUndoManager().registerUndo(withTarget: self, selector: #selector(removeAdjustmentFromStack), object: nil)
+        transformDelegate.getUndoManager().registerUndo(
+            withTarget: self,
+            selector: #selector(removeAdjustmentFromStack),
+            object: nil
+        )
         
         transformDelegate.getUndoManager().setActionName(self.actionName)
         
@@ -64,8 +73,8 @@ class TransformRecord: NSObject {
     }
     
     // Undo
-    @objc func removeAdjustmentFromStack() {
-        
+    @objc
+    func removeAdjustmentFromStack() {
         guard let transformDelegate = TransformStack.shared.transformDelegate else { return }
         
         self.useCurrent = false
@@ -76,15 +85,17 @@ class TransformRecord: NSObject {
         let applyTransform = true
         transformDelegate
             .getUndoManager()
-            .registerUndo(withTarget: self,
-                          selector: #selector(addAdjustmentToStack),
-                          object: NSNumber(value: applyTransform))
+            .registerUndo(
+                withTarget: self,
+                selector: #selector(addAdjustmentToStack),
+                object: NSNumber(value: applyTransform)
+            )
         
         transformDelegate.getUndoManager().setActionName(self.actionName)
         
         if self.transformType == .resetTransforms {
             transformDelegate.updateEnableStateForReset(true)
-        } else if 0 == TransformStack.shared.top {
+        } else if TransformStack.shared.top == 0 {
             transformDelegate.updateEnableStateForReset(false)
         }
     }

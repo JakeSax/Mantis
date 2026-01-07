@@ -10,7 +10,6 @@
 import UIKit
 
 final class RotationCalculator {
-    
     // midpoint for gesture recognizer
     var midPoint = CGPoint.zero
     
@@ -23,7 +22,8 @@ final class RotationCalculator {
     // relative rotation for current gesture (in radians)
     var rotation: CGFloat? {
         guard let currentPoint = self.currentPoint,
-            let previousPoint = self.previousPoint else {
+              let previousPoint = self.previousPoint
+        else {
             return nil
         }
         
@@ -66,7 +66,7 @@ final class RotationCalculator {
     private func distanceBetween(pointA: CGPoint, andPointB pointB: CGPoint) -> CGFloat {
         let diffX = Float(pointA.x - pointB.x)
         let diffY = Float(pointA.y - pointB.y)
-        return CGFloat(sqrtf(diffX*diffX + diffY*diffY))
+        return CGFloat(sqrtf(diffX * diffX + diffY * diffY))
     }
     
     private func angleForPoint(point: CGPoint) -> CGFloat {
@@ -80,7 +80,7 @@ final class RotationCalculator {
     }
     
     private func angleBetween(pointA: CGPoint, andPointB pointB: CGPoint) -> CGFloat {
-        return angleForPoint(point: pointA) - angleForPoint(point: pointB)
+        angleForPoint(point: pointA) - angleForPoint(point: pointB)
     }
     
     func getRotationRadians(byOldPoint point1: CGPoint, andNewPoint point2: CGPoint) -> CGFloat {
