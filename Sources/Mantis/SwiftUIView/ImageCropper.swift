@@ -88,6 +88,7 @@ public struct ImageCropperView: UIViewControllerRepresentable {
         self.onCropCompleted = onCropCompleted
     }
     
+    @MainActor
     public class Coordinator: CropViewControllerDelegate {
         var parent: ImageCropperView
         var cropViewController: Mantis.CropViewController?
